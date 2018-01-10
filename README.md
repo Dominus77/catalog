@@ -58,6 +58,7 @@ $config = [
         'migrate' => [
             'class' => 'yii\console\controllers\MigrateController',
             'migrationNamespaces' => [
+                //...
                 'modules\catalog\migrations',
             ],
         ],
