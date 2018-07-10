@@ -100,7 +100,7 @@ frontend
 ```
 backend
 ```
-/admin/catalog
+/admin/shop/catalog
 /admin/catalog/categories
 /admin/catalog/products
 /admin/catalog/product/images
