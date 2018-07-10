@@ -1,12 +1,11 @@
-Yii 2 module Catalog and Cart
-===============================
+# Yii 2 module Catalog and Cart
 
 Модуль каталога товаров NestedSets с пользовательской корзиной.
 
 > Модуль находится в разработке и пишется на шаблоне [Dominus77/yii2-advanced-start](https://github.com/Dominus77/yii2-advanced-start)
 
-Установка
-------------
+## Установка
+
 Выполнить в корне приложения
 ```
 git clone https://github.com/Dominus77/catalog.git modules/catalog
@@ -21,8 +20,8 @@ git clone https://github.com/Dominus77/catalog.git modules/catalog
 
 [moonlandsoft/yii2-phpexcel](https://github.com/moonlandsoft/yii2-phpexcel)
 
-Подключение
-------------
+## Подключение
+
 common\config\main.php
 ```
 $config = [
@@ -86,13 +85,19 @@ $config = [
     ],
 ];
 ```
-Применить миграции
----
+### Подключение виджета корзины
+В главном шаблоне:
+```
+<?php $this->beginBody() ?>
+// Подключаем виджет
+<?= modules\catalog\widgets\shop\CartWidget::widget() ?>
+```
+## Применить миграции
+
 ```
 php yii migrate
 ```
-Ссылки
----
+### Ссылки
 frontend
 ```
 /shop/catalog
@@ -109,12 +114,5 @@ backend
 ```
 Определяются правилами в файле [Bootstrap.php](https://github.com/Dominus77/catalog/blob/master/Bootstrap.php)
 
-License
------
+### License
 The MIT License (MIT). Please see [License File](https://github.com/Dominus77/catalog/blob/master/LICENSE.md) for more information.
-
-
-
-
-
-
