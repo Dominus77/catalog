@@ -13,8 +13,11 @@ git clone https://github.com/Dominus77/catalog.git modules/catalog
 ```
 Модуль использует следующие зависимости:
 
-[creocoder/yii2-nested-sets](https://github.com/creocoder/yii2-nested-sets) и 
+[creocoder/yii2-nested-sets](https://github.com/creocoder/yii2-nested-sets)
+
 [yii2tech/ar-position](https://github.com/yii2tech/ar-position)
+
+[dimmitri/yii2-expand-row-column](https://github.com/dimmitri/yii2-expand-row-column)
 
 Подключение
 ------------
