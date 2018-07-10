@@ -91,9 +91,19 @@ php yii migrate
 ```
 Ссылки
 ---
+frontend
 ```
 /catalog
 /shop/cart
+```
+backend
+```
+/admin/catalog
+/admin/catalog/categories
+/admin/catalog/products
+/admin/catalog/product/images
+/admin/shop/orders
+
 ```
 Определяются правилами в файле [Bootstrap.php](https://github.com/Dominus77/catalog/blob/master/Bootstrap.php)
 

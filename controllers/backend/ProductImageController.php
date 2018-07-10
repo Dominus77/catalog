@@ -13,10 +13,10 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use modules\catalog\Module;
-use yii\helpers\VarDumper;
 
 /**
- * ProductImageController implements the CRUD actions for CatalogProductImage model.
+ * Class ProductImageController
+ * @package modules\catalog\controllers\backend
  */
 class ProductImageController extends Controller
 {
@@ -29,7 +29,7 @@ class ProductImageController extends Controller
     {
         return [
             'access' => [
-                'class' => AccessControl::className(),
+                'class' => AccessControl::class,
                 'rules' => [
                     [
                         'allow' => true,
@@ -38,7 +38,7 @@ class ProductImageController extends Controller
                 ],
             ],
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -76,9 +76,9 @@ class ProductImageController extends Controller
     }
 
     /**
-     * Displays a single CatalogProductImage model.
-     * @param integer $id
-     * @return mixed
+     * @param $id
+     * @return string
+     * @throws NotFoundHttpException
      */
     public function actionView($id)
     {
@@ -144,10 +144,9 @@ class ProductImageController extends Controller
     }
 
     /**
-     * Updates an existing CatalogProductImage model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
+     * @param $id
+     * @return string|\yii\web\Response
+     * @throws NotFoundHttpException
      */
     public function actionUpdate($id)
     {
@@ -195,10 +194,11 @@ class ProductImageController extends Controller
     }
 
     /**
-     * Deletes an existing CatalogProductImage model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
+     * @param $id
+     * @return \yii\web\Response
+     * @throws NotFoundHttpException
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionDelete($id)
     {
