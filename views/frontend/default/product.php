@@ -17,6 +17,9 @@ $this->params['breadcrumbs'][] = ['label' => $model->category->name, 'url' => ['
 $this->params['breadcrumbs'][] = $this->title;
 
 $this->registerJs(new \yii\web\JsExpression("
+    $(function () {
+        $('[data-toggle=\"tooltip\"]').tooltip();
+    });
     $('nav.thumb').on('click', 'a', function () {
        $(this).addClass('current').siblings().removeClass('current')
        $('.photo img').attr('src', $(this).prop('href'))
