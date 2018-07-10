@@ -111,7 +111,7 @@ backend
 
 License
 -----
-The BSD License (BSD). Please see [License File](https://github.com/Dominus77/catalog/blob/master/LICENSE.md) for more information.
+The MIT License (MIT). Please see [License File](https://github.com/Dominus77/catalog/blob/master/LICENSE.md) for more information.
 
 
 
