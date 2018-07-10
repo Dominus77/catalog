@@ -18,8 +18,6 @@
     -webkit-transition: all .2s ease-out;
     transition: all .2s ease-out;
     z-index: 1140;
-    padding-top: 10px;
-    padding-left: 10px;
 }
 
 #cart_image_wrapper:hover {
@@ -27,6 +25,10 @@
     -moz-transform: scale(1.1);
     -o-transform: scale(1.1);
     transform: scale(1.1);
+}
+
+#cart_image {
+    margin: 10px;
 }
 
 #cart_counter {
