@@ -11,19 +11,30 @@ Yii 2 module Catalog and Cart
 ```
 git clone https://github.com/Dominus77/catalog.git modules/catalog
 ```
+Модуль использует следующие зависимости:
+
+[creocoder/yii2-nested-sets](https://github.com/creocoder/yii2-nested-sets) и 
+[yii2tech/ar-position](https://github.com/yii2tech/ar-position)
+
 Подключение
 ------------
 common\config\main.php
 ```
 $config = [
     //...
-    'modules' => [
-        //...
+    'modules' => [        
         'catalog' => [
             'class' => 'modules\catalog\Module',
         ],
+        //...
     ],
     //...
+    'components' => [
+        'cart' => [
+            'class' => 'modules\catalog\components\Cart',
+        ],
+        //...
+    ],
 ];
 ```
 frontend\config\main.php
@@ -44,6 +55,11 @@ $config = [
         'modules\catalog\Bootstrap',
     ],
     //...
+    'modules' => [
+        'catalog' => [
+            'isBackend' => true,
+        ],
+    ],
 ];
 ```
 console\config\main.php
@@ -72,6 +88,10 @@ php yii migrate
 ```
 Ссылки
 ---
+```
+/catalog
+/shop/cart
+```
 Определяются правилами в файле [Bootstrap.php](https://github.com/Dominus77/catalog/blob/master/Bootstrap.php)
 
 License

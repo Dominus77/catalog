@@ -51,7 +51,7 @@ class Cart extends Component
     }
 
     /**
-     * @return null|static
+     * @return CatalogOrder|null
      */
     public function getOrder()
     {
@@ -77,6 +77,8 @@ class Cart extends Component
     /**
      * @param $productId
      * @return bool|false|int
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function deleteOrderProduct($productId)
     {

@@ -12,7 +12,7 @@ use yii\base\Application;
 class Bootstrap implements BootstrapInterface
 {
     /**
-     * @inheritdoc
+     * @param Application $app
      */
     public function bootstrap($app)
     {
