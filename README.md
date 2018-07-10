@@ -95,7 +95,7 @@ php yii migrate
 ---
 frontend
 ```
-/catalog
+/shop/catalog
 /shop/cart
 ```
 backend
