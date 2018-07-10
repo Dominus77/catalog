@@ -92,7 +92,7 @@ class CatalogOrderProduct extends \yii\db\ActiveRecord
      */
     public function getOrder()
     {
-        return $this->hasOne(CatalogOrder::className(), ['id' => 'order_id']);
+        return $this->hasOne(CatalogOrder::class, ['id' => 'order_id']);
     }
 
     /**
@@ -100,7 +100,7 @@ class CatalogOrderProduct extends \yii\db\ActiveRecord
      */
     public function getProduct()
     {
-        return $this->hasOne(CatalogProduct::className(), ['id' => 'product_id']);
+        return $this->hasOne(CatalogProduct::class, ['id' => 'product_id']);
     }
 
     /**

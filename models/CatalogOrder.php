@@ -125,7 +125,7 @@ class CatalogOrder extends \yii\db\ActiveRecord
     {
         return [
             'timestamp' => [
-                'class' => TimestampBehavior::className(),
+                'class' => TimestampBehavior::class,
             ],
         ];
     }
@@ -174,7 +174,7 @@ class CatalogOrder extends \yii\db\ActiveRecord
      */
     public function getCatalogOrderProducts()
     {
-        return $this->hasMany(CatalogOrderProduct::className(), ['order_id' => 'id']);
+        return $this->hasMany(CatalogOrderProduct::class, ['order_id' => 'id']);
     }
 
     /**
