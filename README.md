@@ -19,6 +19,8 @@ git clone https://github.com/Dominus77/catalog.git modules/catalog
 
 [dimmitri/yii2-expand-row-column](https://github.com/dimmitri/yii2-expand-row-column)
 
+[phpexcel\Excel](https://github.com/moonlandsoft/yii2-phpexcel)
+
 Подключение
 ------------
 common\config\main.php
