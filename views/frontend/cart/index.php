@@ -1,9 +1,7 @@
 <?php
 
-use yii\helpers\Html;
 use yii\widgets\ListView;
 use modules\catalog\Module;
-use yii\helpers\VarDumper;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider modules\catalog\models\CatalogCategory */

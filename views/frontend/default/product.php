@@ -1,13 +1,14 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ListView;
+use yii\helpers\Url;
 use modules\catalog\widgets\tree_menu\TreeMenu;
+use yii\widgets\ActiveForm;
 use modules\catalog\Module;
-use yii\helpers\VarDumper;
 
 /* @var $this yii\web\View */
 /* @var $model modules\catalog\models\CatalogProduct */
+/* @var $formProduct modules\catalog\models\form\BuyProductForm */
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => $model->category->rootCategory->name ? $model->category->rootCategory->name : Module::t('module', 'Catalog'), 'url' => ['default/index']];
@@ -59,9 +60,42 @@ $this->registerJs(new \yii\web\JsExpression("
                 </div>
             </div>
             <div class="col-md-6">
-                <?= $model->description ?>
+                <div class="row">
+                    <div class="col-md-12">
+                        <?= $model->description ?>
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 pull-right">
+                        <?php $form = ActiveForm::begin([
+                            'action' => Url::to(['cart/add-in-cart', 'id' => $model->id]),
+                        ]); ?>
+
+                        <?= $form->field($formProduct, 'count', [
+                            'template' => '{input}',
+                        ])->textInput([
+                            'type' => 'number',
+                            'class' => 'form-control',
+                            'min' => 0,
+                            'max' => $model->availability,
+                            'value' => 0,
+                        ]) ?>
+
+                        <?= Html::submitButton('<span class="glyphicon glyphicon-shopping-cart"></span> ' . Module::t('module', 'Buy'), [
+                            'class' => 'btn btn-success pull-right',
+                            'name' => 'submit-button',
+                            'title' => Module::t('module', 'Add to cart'),
+                            'data' => [
+                                'toggle' => 'tooltip',
+                                'placement' => 'bottom',
+                            ],
+                        ]) ?>
+
+                        <?php ActiveForm::end(); ?>
+                    </div>
+                </div>
             </div>
         </div>
-
     </div>
 </div>

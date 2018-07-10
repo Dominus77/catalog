@@ -16,7 +16,7 @@ class PaymentsController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'order-check' => ['post'],
                     'payment-notification' => ['post'],

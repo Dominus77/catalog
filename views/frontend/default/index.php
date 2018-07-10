@@ -3,7 +3,6 @@
 use yii\helpers\Html;
 use modules\catalog\widgets\tree_menu\TreeMenu;
 use modules\catalog\Module;
-use yii\helpers\VarDumper;
 
 /* @var $this yii\web\View */
 /* @var $model modules\catalog\models\CatalogCategory */

@@ -1,12 +1,10 @@
 <?php
 
-use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ListView;
 use modules\catalog\widgets\tree_menu\TreeMenu;
 use modules\catalog\assets\ProductAsset;
 use modules\catalog\Module;
-use yii\helpers\VarDumper;
 
 /* @var $this yii\web\View */
 /* @var $model modules\catalog\models\CatalogCategory */
