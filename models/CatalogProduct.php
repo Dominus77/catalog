@@ -53,15 +53,16 @@ class CatalogProduct extends \yii\db\ActiveRecord
     {
         return [
             'timestamp' => [
-                'class' => TimestampBehavior::className(),
+                'class' => TimestampBehavior::class,
             ],
             'slug' => [
-                'class' => SluggableBehavior::className(),
+                'class' => SluggableBehavior::class,
                 'attribute' => 'name',
                 'slugAttribute' => 'slug',
+                'ensureUnique' => true,
             ],
             'positionBehavior' => [
-                'class' => PositionBehavior::className(),
+                'class' => PositionBehavior::class,
                 'positionAttribute' => 'position',
                 'groupAttributes' => [
                     'category_id',
@@ -86,7 +87,7 @@ class CatalogProduct extends \yii\db\ActiveRecord
             [['meta_keywords'], 'string', 'max' => 250],
             [['slug'], 'unique'],
             [['code'], 'unique'],
-            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => CatalogCategory::className(), 'targetAttribute' => ['category_id' => 'id']],
+            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => CatalogCategory::class, 'targetAttribute' => ['category_id' => 'id']],
         ];
     }
 
@@ -118,7 +119,7 @@ class CatalogProduct extends \yii\db\ActiveRecord
      */
     public function getCategory()
     {
-        return $this->hasOne(CatalogCategory::className(), ['id' => 'category_id']);
+        return $this->hasOne(CatalogCategory::class, ['id' => 'category_id']);
     }
 
     /**
@@ -126,11 +127,11 @@ class CatalogProduct extends \yii\db\ActiveRecord
      */
     public function getCatalogProductImages()
     {
-        return $this->hasMany(CatalogProductImage::className(), ['product_id' => 'id']);
+        return $this->hasMany(CatalogProductImage::class, ['product_id' => 'id']);
     }
 
     /**
-     * @return $this
+     * @return \yii\db\ActiveQuery
      */
     public function getProductImages()
     {
@@ -140,9 +141,8 @@ class CatalogProduct extends \yii\db\ActiveRecord
     }
 
     /**
-     * Get path Images Product
      * @param null $id
-     * @return null|string
+     * @return array|null
      */
     public function getImages($id = null)
     {
@@ -264,8 +264,9 @@ class CatalogProduct extends \yii\db\ActiveRecord
     }
 
     /**
-     * Действия перед удалением
      * @return bool
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function beforeDelete()
     {
@@ -289,7 +290,12 @@ class CatalogProduct extends \yii\db\ActiveRecord
                 if (!CatalogProduct::find()->where(['code' => $item['code']])->one()) {
                     $model = new CatalogProduct();
                     if ($model->load($item, '')) {
-                        $model->save();
+                        $model->code = (string)$item['code'];
+                        if ($model->validate()) {
+                            $model->save();
+                        } else {
+                            VarDumper::dump($model->errors, 10, 1);
+                        }
                     }
                 }
             }
@@ -309,7 +315,12 @@ class CatalogProduct extends \yii\db\ActiveRecord
             foreach ($data as $item) {
                 if ($model = CatalogProduct::find()->where(['code' => $item['code']])->one()) {
                     if ($model->load($item, '')) {
-                        $model->save();
+                        $model->code = (string)$item['code'];
+                        if ($model->validate()) {
+                            $model->save();
+                        } else {
+                            VarDumper::dump($model->errors, 10, 1);
+                        }
                     }
                 }
             }
@@ -319,11 +330,10 @@ class CatalogProduct extends \yii\db\ActiveRecord
     }
 
     /**
-     * Удаление из БД товаров которых нет в импорте
      * @param array $data
-     * @return array
-     * @throws \Exception
+     * @return bool
      * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function importItemsDelete($data = [])
     {
@@ -415,6 +425,6 @@ class CatalogProduct extends \yii\db\ActiveRecord
     {
         $array = explode(' ', trim($string));
         $array = array_diff($array, ['']);
-        return $array[0];
+        return (int)$array[0];
     }
 }
