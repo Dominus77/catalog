@@ -7,9 +7,6 @@ use yii\bootstrap\Widget;
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use modules\catalog\models\CatalogOrder;
-use modules\catalog\models\form\BuyProductForm;
-use yii\data\ActiveDataProvider;
-use yii\helpers\VarDumper;
 
 /**
  * Class CartWidget
@@ -47,14 +44,17 @@ class CartWidget extends Widget
     }
 
     /**
+     * Возвращает количество продуктов в заказе со статусом Default
      * @return mixed
      */
     protected function getCounter()
     {
-        $orderProducts = $this->getCatalogOrderProducts()->all();
+        $orderProducts = $this->getCatalogOrderDefaultProducts()
+            ->select('count')
+            ->indexBy('count')
+            ->column();
         return ArrayHelper::getValue($orderProducts, function ($orderProducts, $defaultValue) {
-            $counts = ArrayHelper::getColumn($orderProducts, 'count');
-            foreach ($counts as $value) {
+            foreach ($orderProducts as $value) {
                 $defaultValue += $value;
             }
             return $defaultValue;
@@ -62,12 +62,16 @@ class CartWidget extends Widget
     }
 
     /**
+     * Возвращает продукты заказа со статусом Default
      * @return int|string|\yii\db\ActiveQuery
      */
-    protected function getCatalogOrderProducts()
+    protected function getCatalogOrderDefaultProducts()
     {
         $id = Yii::$app->cart->order->id;
-        $order = CatalogOrder::findOne(['id' => $id]);
+        $order = CatalogOrder::findOne([
+            'id' => $id,
+            'status' => CatalogOrder::STATUS_ORDER_DEFAULT
+        ]);
         return $order->getCatalogOrderProducts();
     }
 
