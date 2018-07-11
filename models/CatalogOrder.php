@@ -241,7 +241,7 @@ class CatalogOrder extends \yii\db\ActiveRecord
      * @param int $percent
      * @return float|int
      */
-    public function getDiscount($amount, $percent = 0)
+    public function getDiscount($amount = 0, $percent = 0)
     {
         $val = $percent / 100; // Узнаем, сколько рублей составляет скидка, для этого число процентов записываем в виде десятичной дроби
         $summ = $amount * $val; // Умножаем первоначальную цену на полученное число
