@@ -2,7 +2,7 @@
 
 /**
  * @var $this yii\web\View
- * @var $count int|mixed
+ * @var $count mixed
  */
 
 use yii\helpers\Html;

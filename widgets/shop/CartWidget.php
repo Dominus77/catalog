@@ -47,16 +47,18 @@ class CartWidget extends Widget
     }
 
     /**
-     * @return int|mixed
+     * @return mixed
      */
     protected function getCounter()
     {
         $orderProducts = $this->getCatalogOrderProducts()->all();
-        $count = 0;
-        foreach ($orderProducts as $value) {
-            $count += $value->count;
-        }
-        return $count;
+        return ArrayHelper::getValue($orderProducts, function ($orderProducts, $defaultValue) {
+            $counts = ArrayHelper::getColumn($orderProducts, 'count');
+            foreach ($counts as $value) {
+                $defaultValue += $value;
+            }
+            return $defaultValue;
+        });
     }
 
     /**
