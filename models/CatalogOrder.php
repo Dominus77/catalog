@@ -249,6 +249,7 @@ class CatalogOrder extends \yii\db\ActiveRecord
     }
 
     /**
+     * Формат цены
      * @param int $value
      * @return string
      * @throws \yii\base\InvalidConfigException
