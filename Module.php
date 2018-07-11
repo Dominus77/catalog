@@ -92,7 +92,7 @@ class Module extends \yii\base\Module
     public function init()
     {
         parent::init();
-        $this->orderConfirmTokenExpire = 60;//60 * 60 * 24 * 3;
+        $this->orderConfirmTokenExpire = 60 * 60 * 24 * 3; // 3 days
         if (Yii::$app instanceof ConsoleApplication) {
             $this->controllerNamespace = 'modules\catalog\commands';
         }
