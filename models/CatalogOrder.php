@@ -232,18 +232,32 @@ class CatalogOrder extends \yii\db\ActiveRecord
             /** @var integer $price */
             $total += $product->price * $product->count;
         }
-        return Yii::$app->formatter->asCurrency($total, Module::$currencyUnit, [
-            \NumberFormatter::MAX_FRACTION_DIGITS => Module::$maxFactionDigits,
-        ]);
+        return $total;
     }
 
     /**
      * Скидка в %
-     * @return int
+     * @param $amount int
+     * @param int $percent
+     * @return float|int
      */
-    public function getDiscount()
+    public function getDiscount($amount, $percent = 0)
     {
-        return 10;
+        $val = $percent / 100; // Узнаем, сколько рублей составляет скидка, для этого число процентов записываем в виде десятичной дроби
+        $summ = $amount * $val; // Умножаем первоначальную цену на полученное число
+        return $amount - $summ; // Узнаем стоимость товара после скидки
+    }
+
+    /**
+     * @param int $value
+     * @return string
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function getCurrency($value = 0)
+    {
+        return Yii::$app->formatter->asCurrency($value, Module::$currencyUnit, [
+            \NumberFormatter::MAX_FRACTION_DIGITS => Module::$maxFactionDigits,
+        ]);
     }
 
     /**

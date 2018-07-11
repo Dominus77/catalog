@@ -38,10 +38,14 @@ $this->registerJs(new \yii\web\JsExpression("
                 <h3>Информация о заказе</h3>
                 <ul>
                     <li>Товаров: <?= $order->getProductsCount() ?></li>
-                    <li>Сумма: <?= $order->getAmount() ?></li>
-                    <li>Скидка: -10%</li>
-                    <li>Доставка: 400р</li>
-                    <li>И того: <?= $order->getAmount() ?></li>
+                    <li>Сумма: <?= $order->getCurrency($order->getAmount()) ?></li>
+                    <li>Скидка: -<?= Module::$discount ?>%</li>
+                    <!--<li>Доставка: 400р</li>-->
+                    <li>
+                        И того: <?= $order->getCurrency(
+                            $order->getDiscount($order->getAmount(), Module::$discount)
+                        ) ?>
+                    </li>
                 </ul>
                 <a class="btn btn-sm btn-success" href="#">Оформить заказ</a>
             </div>

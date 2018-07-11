@@ -33,6 +33,12 @@ class Module extends \yii\base\Module
     public static $maxFactionDigits = 2;
 
     /**
+     * Скидка в %
+     * @var int
+     */
+    public static $discount = 13; // %
+
+    /**
      * @var string
      */
     public static $uploadDir = 'uploads/catalog';
