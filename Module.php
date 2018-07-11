@@ -33,10 +33,10 @@ class Module extends \yii\base\Module
     public static $maxFactionDigits = 2;
 
     /**
-     * Скидка в %
+     * Общая скидка в %
      * @var int
      */
-    public static $discount = 13; // %
+    public static $discount = 30; // %
 
     /**
      * @var string
