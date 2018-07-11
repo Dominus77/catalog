@@ -221,6 +221,7 @@ class CatalogOrder extends \yii\db\ActiveRecord
 
     /**
      * @return string
+     * @throws \yii\base\InvalidConfigException
      */
     public function getAmount()
     {
@@ -231,7 +232,18 @@ class CatalogOrder extends \yii\db\ActiveRecord
             /** @var integer $price */
             $total += $product->price * $product->count;
         }
-        return Yii::$app->formatter->asDecimal($total, 2);
+        return Yii::$app->formatter->asCurrency($total, Module::$currencyUnit, [
+            \NumberFormatter::MAX_FRACTION_DIGITS => Module::$maxFactionDigits,
+        ]);
+    }
+
+    /**
+     * Скидка в %
+     * @return int
+     */
+    public function getDiscount()
+    {
+        return 10;
     }
 
     /**

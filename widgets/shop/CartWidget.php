@@ -5,7 +5,6 @@ namespace modules\catalog\widgets\shop;
 use Yii;
 use yii\bootstrap\Widget;
 use yii\helpers\Html;
-use yii\helpers\ArrayHelper;
 use modules\catalog\models\CatalogOrder;
 
 /**
@@ -44,32 +43,25 @@ class CartWidget extends Widget
     }
 
     /**
-     * Возвращает количество продуктов в заказе со статусом Default
+     * Возвращает количество продуктов в заказе
      * @return mixed
      */
     protected function getCounter()
     {
-        $count = 0;
-        if ($orderProducts = $this->getCatalogOrderDefaultProducts()->all()) {
-            foreach ($orderProducts as $value) {
-                $count += $value->count;
-            }
-        }
-        return $count;
+        return $this->getCatalogOrderDefaultProducts()->getProductsCount();
     }
 
     /**
      * Возвращает продукты заказа со статусом Default
-     * @return int|string|\yii\db\ActiveQuery
+     * @return CatalogOrder|null
      */
     protected function getCatalogOrderDefaultProducts()
     {
         $id = Yii::$app->cart->order->id;
-        $order = CatalogOrder::findOne([
+        return CatalogOrder::findOne([
             'id' => $id,
             'status' => CatalogOrder::STATUS_ORDER_DEFAULT
         ]);
-        return $order->getCatalogOrderProducts();
     }
 
     /**

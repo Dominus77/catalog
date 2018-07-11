@@ -24,7 +24,13 @@ class Module extends \yii\base\Module
      * &curren; - Знак валюты
      * @var string
      */
-    public static $currencyUnit = '&#8381;';
+    public static $currencyUnit = 'RUB'; //'&#8381;';
+
+    /**
+     * Разрядность после точки в цене
+     * @var int
+     */
+    public static $maxFactionDigits = 2;
 
     /**
      * @var string

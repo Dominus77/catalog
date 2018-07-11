@@ -53,6 +53,7 @@ class CartController extends Controller
         return $this->render('index', [
             'dataProvider' => $dataProvider,
             'formProduct' => $formProduct,
+            'order' => $order,
         ]);
     }
 

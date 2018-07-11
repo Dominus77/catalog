@@ -64,7 +64,9 @@ use modules\catalog\Module;
                         <strong><?= Module::t('module', 'Retail') ?>:</strong>
                     </div>
                     <div class="col-xs-4 col-md-8">
-                        <?= $model->price ?> <?= Module::$currencyUnit ?>
+                        <?= Yii::$app->formatter->asCurrency($model->price, Module::$currencyUnit, [
+                            \NumberFormatter::MAX_FRACTION_DIGITS => Module::$maxFactionDigits,
+                        ]); ?>
                     </div>
                 </div>
 
@@ -73,7 +75,9 @@ use modules\catalog\Module;
                         <strong><?= Module::t('module', 'Total') ?>:</strong>
                     </div>
                     <div class="col-xs-4 col-md-8">
-                        <strong><?= Yii::$app->formatter->asDecimal($model->count * $model->price, 2) ?> <?= Module::$currencyUnit ?></strong>
+                        <strong><?= Yii::$app->formatter->asCurrency($model->count * $model->price, Module::$currencyUnit, [
+                                \NumberFormatter::MAX_FRACTION_DIGITS => Module::$maxFactionDigits,
+                            ]); ?></strong>
                     </div>
                 </div>
 
