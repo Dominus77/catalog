@@ -1,6 +1,5 @@
 <?php
 
-use yii\widgets\ListView;
 use modules\catalog\Module;
 
 /* @var $this yii\web\View */
@@ -18,19 +17,12 @@ $this->registerJs(new \yii\web\JsExpression("
 "));
 ?>
 <div class="catalog-frontend-cart-index">
-    <div class="row">
-        <?= ListView::widget([
-            'dataProvider' => $dataProvider,
-            'emptyText' => $this->render('_empty'),
-            'layout' => "{items}\n{pager}",
-            'itemView' => function ($model, $key, $index, $widget) use ($formProduct) {
-                return $this->render('_list', [
-                    'model' => $model,
-                    'formProduct' => $formProduct,
-                ]);
-            },
-        ]); ?>
-    </div>
+    <?= $this->render('_view', [
+        'dataProvider' => $dataProvider,
+        'model' => $model,
+        'formProduct' => $formProduct,
+
+    ]); ?>
     <?php if (!Yii::$app->cart->isEmpty()) : ?>
         <div class="row">
             <div class="col-md-12">

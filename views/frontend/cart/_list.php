@@ -30,8 +30,7 @@ use modules\catalog\Module;
             </div>
             <div class="panel-body">
 
-                <img class="img-thumbnail img-responsive" src="<?= $model->product->images[0] ?>">
-
+                <p><img class="img-thumbnail img-responsive" src="<?= $model->product->images[0] ?>"></p>
 
                 <?php $form = ActiveForm::begin([
                     'action' => Url::to(['set-count', 'id' => $model->product->id]),
@@ -50,14 +49,14 @@ use modules\catalog\Module;
                 ])
                 ?>
                 <?= $form->field($formProduct, 'count', [
-                    'template' => '<div class="row"><div class="col-xs-12 col-md-4">{label}</div><div class="col-xs-12 col-md-4">{input}</div></div>',
+                    'template' => '<div class="col-xs-12 col-md-8">{input}</div>',
                     'inputTemplate' => '<div class="input-group">{input}<span class="input-group-btn">' . $save . '</span></div>',
                 ])->textInput([
                     'type' => 'number',
                     'min' => 1,
                     'max' => $model->product->availability,
                     'value' => $model->count,
-                ])->label(Module::t('module', 'Count') . ':') ?>
+                ])->label(false) ?>
                 <?php ActiveForm::end(); ?>
 
                 <div class="row">
