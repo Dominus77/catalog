@@ -5,7 +5,11 @@ namespace modules\catalog\widgets\shop;
 use Yii;
 use yii\bootstrap\Widget;
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 use modules\catalog\models\CatalogOrder;
+use modules\catalog\models\form\BuyProductForm;
+use yii\data\ActiveDataProvider;
+use yii\helpers\VarDumper;
 
 /**
  * Class CartWidget
@@ -36,22 +40,33 @@ class CartWidget extends Widget
             $this->registerAssets();
             echo Html::beginTag('div', ['id' => $this->id]) . PHP_EOL;
             echo $this->render('cartWidget', [
-                    'counter' => $this->getCounter(),
+                    'count' => $this->getCounter(),
                 ]) . PHP_EOL;
             echo Html::endTag('div') . PHP_EOL;
         }
     }
 
     /**
-     * @return int|string
+     * @return int|mixed
      */
     protected function getCounter()
     {
-        if ($id = Yii::$app->cart->order->id) {
-            $order = CatalogOrder::findOne(['id' => $id]);
-            return $order->getCatalogOrderProducts()->count();
+        $orderProducts = $this->getCatalogOrderProducts()->all();
+        $count = 0;
+        foreach ($orderProducts as $value) {
+            $count += $value->count;
         }
-        return 0;
+        return $count;
+    }
+
+    /**
+     * @return int|string|\yii\db\ActiveQuery
+     */
+    protected function getCatalogOrderProducts()
+    {
+        $id = Yii::$app->cart->order->id;
+        $order = CatalogOrder::findOne(['id' => $id]);
+        return $order->getCatalogOrderProducts();
     }
 
     /**

@@ -2,8 +2,6 @@
 
 /** @var $this yii\web\View */
 
-use modules\catalog\Module;
-
 ?>
 <div id="cart_image_wrapper">
     <svg id="cart_image" width="40" height="40" xmlns="http://www.w3.org/2000/svg"
