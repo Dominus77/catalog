@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use modules\catalog\widgets\tree_menu\TreeMenu;
 use yii\widgets\ActiveForm;
+use modules\catalog\helpers\ShopHelper;
 use modules\catalog\Module;
 
 /* @var $this yii\web\View */
@@ -70,6 +71,9 @@ $this->registerJs(new \yii\web\JsExpression("
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-md-3 pull-left">
+                        <p class="lead"><?= ShopHelper::Currency($model->retail) ?> </p>
+                    </div>
                     <div class="col-md-3 pull-right">
                         <?php $form = ActiveForm::begin([
                             'action' => Url::to(['cart/add-in-cart', 'id' => $model->id]),

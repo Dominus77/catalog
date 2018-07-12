@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\helpers\HtmlPurifier;
 use yii\widgets\ActiveForm;
+use modules\catalog\helpers\ShopHelper;
 use modules\catalog\Module;
 
 /* @var $model modules\catalog\models\CatalogProduct */
@@ -24,7 +25,7 @@ use modules\catalog\Module;
 
             <div class="row">
                 <div class="col-xs-12 col-md-8">
-                    <p class="lead"><?= $model->retail ?> <?= Module::$currencyUnit; ?></p>
+                    <p class="lead"><?= ShopHelper::Currency($model->retail) ?> </p>
                 </div>
                 <?php $form = ActiveForm::begin([
                     'action' => Url::to(['cart/add-in-cart', 'id' => $model->id]),
