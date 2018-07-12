@@ -1,6 +1,7 @@
 <?php
 
 use yii\widgets\ListView;
+use modules\catalog\helpers\ShopHelper;
 use modules\catalog\Module;
 
 /* @var $this yii\web\View */
@@ -38,12 +39,12 @@ $this->registerJs(new \yii\web\JsExpression("
                 <h3>Информация о заказе</h3>
                 <ul>
                     <li>Товаров: <?= $order->getProductsCount() ?></li>
-                    <li>Сумма: <?= $order->getCurrency($order->getAmount()) ?></li>
+                    <li>Сумма: <?= ShopHelper::Currency($order->getAmount()) ?></li>
                     <li>Скидка: -<?= Module::$discount ?>%</li>
                     <!--<li>Доставка: 400р</li>-->
                     <li>
-                        И того: <?= $order->getCurrency(
-                            $order->getDiscount($order->getAmount(), Module::$discount)
+                        И того: <?= ShopHelper::Currency(
+                            ShopHelper::Discount($order->getAmount(), Module::$discount)
                         ) ?>
                     </li>
                 </ul>

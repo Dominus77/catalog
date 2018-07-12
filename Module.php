@@ -36,7 +36,7 @@ class Module extends \yii\base\Module
      * Общая скидка в %
      * @var int
      */
-    public static $discount = 30; // %
+    public static $discount = 5; // %
 
     /**
      * @var string

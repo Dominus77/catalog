@@ -220,8 +220,7 @@ class CatalogOrder extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return string
-     * @throws \yii\base\InvalidConfigException
+     * @return float|int
      */
     public function getAmount()
     {
@@ -233,32 +232,6 @@ class CatalogOrder extends \yii\db\ActiveRecord
             $total += $product->price * $product->count;
         }
         return $total;
-    }
-
-    /**
-     * Скидка в %
-     * @param $amount int
-     * @param int $percent
-     * @return float|int
-     */
-    public function getDiscount($amount = 0, $percent = 0)
-    {
-        $val = $percent / 100; // Узнаем, сколько рублей составляет скидка, для этого число процентов записываем в виде десятичной дроби
-        $summ = $amount * $val; // Умножаем первоначальную цену на полученное число
-        return $amount - $summ; // Узнаем стоимость товара после скидки
-    }
-
-    /**
-     * Формат цены
-     * @param int $value
-     * @return string
-     * @throws \yii\base\InvalidConfigException
-     */
-    public function getCurrency($value = 0)
-    {
-        return Yii::$app->formatter->asCurrency($value, Module::$currencyUnit, [
-            \NumberFormatter::MAX_FRACTION_DIGITS => Module::$maxFactionDigits,
-        ]);
     }
 
     /**
