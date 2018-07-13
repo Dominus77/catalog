@@ -14,6 +14,11 @@ use modules\catalog\models\CatalogOrder;
 class CronController extends Controller
 {
     /**
+     * @var \modules\catalog\Module
+     */
+    public $module;
+
+    /**
      * Delete expired orders
      * @throws \Exception
      * @throws \Throwable

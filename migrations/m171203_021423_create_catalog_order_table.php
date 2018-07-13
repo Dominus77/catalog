@@ -32,6 +32,7 @@ class m171203_021423_create_catalog_order_table extends Migration
             'phone' => $this->string(255)->comment('Phone'),
             'address' => $this->integer(11)->comment('Address'),
             'status' => $this->smallInteger(2)->defaultValue(0)->comment('Status'),
+            //'email_confirm_token' =>  $this->string()->comment('Email Confirm Token'),
             'created_at' => $this->integer()->notNull()->comment('Created'),
             'updated_at' => $this->integer()->notNull()->comment('Updated'),
         ], $tableOptions);

@@ -105,6 +105,19 @@ class Bootstrap implements BootstrapInterface
                         '<_a:[\w\-]+>' => '<_a>',
                     ],
                 ],
+
+                // Promotion
+                [
+                    'class' => 'yii\web\GroupUrlRule',
+                    'routePrefix' => 'catalog/promotion',
+                    'prefix' => 'shop/promotion',
+                    'rules' => [
+                        '' => 'index',
+                        '<id:\d+>/<_a:[\w\-]+>' => '<_a>',
+                        '<_a:[\w\-]+>' => '<_a>',
+                    ],
+                ],
+
                 // Frontend
                 [
                     'class' => 'yii\web\GroupUrlRule',

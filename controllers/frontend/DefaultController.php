@@ -84,7 +84,7 @@ class DefaultController extends Controller
      */
     protected function findProductModel($id)
     {
-        if (($model = CatalogProduct::find($id)
+        if (($model = CatalogProduct::find()
                 ->where(['id' => $id])
                 ->andWhere(['status' => CatalogProduct::STATUS_PUBLISH])
                 ->one()

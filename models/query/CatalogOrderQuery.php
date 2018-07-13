@@ -12,7 +12,7 @@ use modules\catalog\models\CatalogOrder;
 class CatalogOrderQuery extends ActiveQuery
 {
     /**
-     * @param $timeout
+     * @param $timeout int
      * @return $this
      */
     public function overdue($timeout)

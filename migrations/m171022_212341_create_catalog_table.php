@@ -80,7 +80,6 @@ class m171022_212341_create_catalog_table extends Migration
             'id' => $this->primaryKey()->comment('ID'),
             'product_id' => $this->integer()->notNull()->comment('Product'),
             'image' => $this->string()->comment('Image'),
-
             'position' => $this->integer()->defaultValue(0)->comment('Position'),
             'created_at' => $this->integer()->notNull()->comment('Created'),
             'updated_at' => $this->integer()->notNull()->comment('Updated'),

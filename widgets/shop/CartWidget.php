@@ -48,7 +48,10 @@ class CartWidget extends Widget
      */
     protected function getCounter()
     {
-        return $this->getCatalogOrderDefaultProducts()->getProductsCount();
+        if($products = $this->getCatalogOrderDefaultProducts()) {
+            return $products->getProductsCount();
+        }
+        return 0;
     }
 
     /**
@@ -57,11 +60,13 @@ class CartWidget extends Widget
      */
     protected function getCatalogOrderDefaultProducts()
     {
-        $id = Yii::$app->cart->order->id;
-        return CatalogOrder::findOne([
-            'id' => $id,
-            'status' => CatalogOrder::STATUS_ORDER_DEFAULT
-        ]);
+        if ($id = Yii::$app->cart->order->id) {
+            return CatalogOrder::findOne([
+                'id' => $id,
+                'status' => CatalogOrder::STATUS_ORDER_DEFAULT
+            ]);
+        }
+        return null;
     }
 
     /**
