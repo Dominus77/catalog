@@ -44,6 +44,14 @@ $this->params['breadcrumbs'][] = Module::t('module', 'Products');
                         ],
                     ]) ?>
                 </p>
+                <?= common\widgets\PageSize::widget([
+                    'label' => '',
+                    'defaultPageSize' => 25,
+                    'sizes' => [10 => 10, 15 => 15, 20 => 20, 25 => 25, 50 => 50, 100 => 100, 200 => 200],
+                    'options' => [
+                        'class' => 'form-control'
+                    ]
+                ]); ?>
             </div>
             <div class="pull-right">
                 <p>
@@ -62,6 +70,7 @@ $this->params['breadcrumbs'][] = Module::t('module', 'Products');
                 'id' => 'grid-products',
                 'dataProvider' => $dataProvider,
                 'filterModel' => $searchModel,
+                'filterSelector' => 'select[name="per-page"]',
                 'showFooter' => true,
                 'layout' => "{items}\n{pager}",
                 'tableOptions' => [
@@ -80,7 +89,7 @@ $this->params['breadcrumbs'][] = Module::t('module', 'Products');
                         'filter' => false,
                     ],
                     [
-                        'class' => ExpandRowColumn::className(),
+                        'class' => ExpandRowColumn::class,
                         'attribute' => 'code',
                         'filter' => Html::activeInput('text', $searchModel, 'code', [
                             'class' => 'form-control',

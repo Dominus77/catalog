@@ -6,11 +6,14 @@ use Yii;
 use modules\catalog\models\CatalogPromotion;
 use modules\catalog\models\search\CatalogPromotionSearch;
 use yii\web\Controller;
+use yii\web\Response;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * PromotionController implements the CRUD actions for CatalogPromotion model.
+ * Class PromotionController
+ * @package modules\catalog\controllers\backend
  */
 class PromotionController extends Controller
 {
@@ -21,7 +24,7 @@ class PromotionController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -31,7 +34,8 @@ class PromotionController extends Controller
 
     /**
      * Lists all CatalogPromotion models.
-     * @return mixed
+     * @return string
+     * @throws \yii\base\InvalidConfigException
      */
     public function actionIndex()
     {
@@ -79,8 +83,9 @@ class PromotionController extends Controller
      * Updates an existing CatalogPromotion model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
+     * @return string|Response
+     * @throws NotFoundHttpException
+     * @throws \yii\base\InvalidConfigException
      */
     public function actionUpdate($id)
     {
@@ -89,18 +94,53 @@ class PromotionController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
-
+        $model->start_at = Yii::$app->formatter->asDatetime($model->start_at, 'php:d-m-Y H:i');
+        $model->end_at = Yii::$app->formatter->asDatetime($model->end_at, 'php:d-m-Y H:i');
         return $this->render('update', [
             'model' => $model,
         ]);
     }
 
     /**
+     * @param integer $id
+     * @return array|Response
+     * @throws NotFoundHttpException
+     */
+    public function actionSetStatus($id)
+    {
+        if (Yii::$app->request->isAjax) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            $result = $this->processChangeStatus($id);
+            return [
+                'result' => $result->statusLabelName,
+            ];
+        }
+        $this->processChangeStatus($id);
+        return $this->redirect(Yii::$app->request->referrer);
+    }
+
+    /**
+     * @param $id integer
+     * @return CatalogPromotion
+     * @throws NotFoundHttpException
+     */
+    protected function processChangeStatus($id)
+    {
+        $model = $this->findModel($id);
+        $model->scenario = $model::SCENARIO_CHANGE_STATUS;
+        $model->setStatus();
+        $model->save(false);
+        return $model;
+    }
+
+    /**
      * Deletes an existing CatalogPromotion model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
+     * @return Response
+     * @throws NotFoundHttpException
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionDelete($id)
     {

@@ -22,11 +22,15 @@ use modules\catalog\Module;
  * @property int $updated_at Updated
  *
  * @property CatalogPromotionProduct[] $catalogPromotionProducts
+ * @property array $statusesArray
+ * @property string $statusLabelName
  */
 class CatalogPromotion extends \yii\db\ActiveRecord
 {
     const STATUS_DRAFT = 0;
     const STATUS_PUBLISH = 1;
+
+    const SCENARIO_CHANGE_STATUS = 'status';
 
     /**
      * {@inheritdoc}
@@ -56,9 +60,23 @@ class CatalogPromotion extends \yii\db\ActiveRecord
         return [
             [['name'], 'required'],
             [['description'], 'string'],
-            [['discount', 'status', 'start_at', 'end_at', 'created_at', 'updated_at'], 'integer'],
+            [['discount', 'status'], 'integer'],
             [['name'], 'string', 'max' => 255],
+            //[['start_at', 'end_at'], 'date', 'format' => 'dd.mm.yyyy H:ii'],
+            [['start_at', 'end_at'], 'safe'],
+            //['start_at', 'validateDates'],
         ];
+    }
+
+    /**
+     * Validate dates range
+     */
+    public function validateDates()
+    {
+        if (strtotime($this->end_at) <= strtotime($this->start_at)) {
+            $this->addError('start_at', 'Please give correct Start and End dates');
+            $this->addError('end_at', 'Please give correct Start and End dates');
+        }
     }
 
     /**
@@ -125,5 +143,37 @@ class CatalogPromotion extends \yii\db\ActiveRecord
     {
         $name = ArrayHelper::getValue(self::getLabelsArray(), $this->status);
         return Html::tag('span', self::getStatusName(), ['class' => 'label label-' . $name]);
+    }
+
+    /**
+     * Set Status
+     * @return int|string
+     */
+    public function setStatus()
+    {
+        switch ($this->status) {
+            case self::STATUS_PUBLISH:
+                $this->status = self::STATUS_DRAFT;
+                break;
+            default:
+                $this->status = self::STATUS_PUBLISH;
+        }
+        return $this->status;
+    }
+
+    /**
+     * Действия перед сохранением
+     * @inheritdoc
+     */
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if ($this->scenario != self::SCENARIO_CHANGE_STATUS) {
+                $this->start_at = strtotime($this->start_at);
+                $this->end_at = strtotime($this->end_at);
+            }
+            return true;
+        }
+        return false;
     }
 }

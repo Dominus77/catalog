@@ -20,6 +20,10 @@ git clone https://github.com/Dominus77/catalog.git modules/catalog
 
 [moonlandsoft/yii2-phpexcel](https://github.com/moonlandsoft/yii2-phpexcel)
 
+[2amigos/yii2-date-picker-widget](https://github.com/2amigos/yii2-date-picker-widget)
+
+[2amigos/yii2-date-time-picker-widget](https://github.com/2amigos/yii2-date-time-picker-widget)
+
 ## Подключение
 
 common\config\main.php
