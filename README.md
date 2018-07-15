@@ -106,16 +106,17 @@ php yii migrate
 ### Ссылки
 frontend
 ```
-/shop/catalog
-/shop/cart
+/catalog/default/index
+/shop/cart/index
 ```
 backend
 ```
-/admin/shop/catalog
-/admin/catalog/categories
-/admin/catalog/products
-/admin/catalog/product/images
-/admin/shop/orders
+/admin/catalog/default/index
+/admin/catalog/category/index
+/admin/catalog/product/index
+/admin/catalog/product-image/index
+/admin/catalog/promotion/index
+/admin/catalog/orders/index
 
 ```
 Определяются правилами в файле [Bootstrap.php](https://github.com/Dominus77/catalog/blob/master/Bootstrap.php)
