@@ -147,7 +147,7 @@ class CatalogCategory extends \yii\db\ActiveRecord
      */
     public function getCatalogProducts()
     {
-        return $this->hasMany(CatalogProduct::className(), ['category_id' => 'id']);
+        return $this->hasMany(CatalogProduct::class, ['category_id' => 'id']);
     }
 
     /**

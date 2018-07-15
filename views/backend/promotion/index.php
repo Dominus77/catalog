@@ -46,15 +46,6 @@ $language = substr(\Yii::$app->language, 0, 2);
                             'pjax' => 0,
                         ],
                     ]) ?>
-                    <?= Html::a(Module::t('module', 'Add Products'), ['create'], [
-                        'class' => 'btn btn-primary',
-                        'title' => Module::t('module', 'Add products in promotion'),
-                        'data' => [
-                            'toggle' => 'tooltip',
-                            'placement' => 'top',
-                            'pjax' => 0,
-                        ],
-                    ]) ?>
                 </p>
             </div>
             <?= GridView::widget([
@@ -116,7 +107,7 @@ $language = substr(\Yii::$app->language, 0, 2);
                             ]
                         ]),
                         'value' => function ($data) {
-                            return Yii::$app->formatter->asDatetime($data->start_at, 'php:d-M-Y H:i');
+                            return $data->startAt;
                         }
                     ],
                     [
@@ -138,7 +129,7 @@ $language = substr(\Yii::$app->language, 0, 2);
                             ]
                         ]),
                         'value' => function ($data) {
-                            return Yii::$app->formatter->asDatetime($data->end_at, 'php:d-M-Y H:i');
+                            return $data->endAt;
                         }
                     ],
                     [
@@ -164,11 +155,48 @@ $language = substr(\Yii::$app->language, 0, 2);
                             ]);
                         },
                     ],
-                    ['class' => 'yii\grid\ActionColumn'],
+                    [
+                        'class' => 'yii\grid\ActionColumn',
+                        'contentOptions' => [
+                            'class' => 'text-center',
+                            'style' => 'width:90px',
+                        ],
+                        'template' => '{view} {update} {delete}',
+                        'buttons' => [
+                            'view' => function ($url) {
+                                return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                                    'title' => Module::t('module', 'View'),
+                                    'data' => [
+                                        'toggle' => 'tooltip',
+                                        'pjax' => 0,
+                                    ]
+                                ]);
+                            },
+                            'update' => function ($url) {
+                                return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                                    'title' => Module::t('module', 'Update'),
+                                    'data' => [
+                                        'toggle' => 'tooltip',
+                                        'pjax' => 0,
+                                    ]
+                                ]);
+                            },
+                            'delete' => function ($url) {
+                                return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                                    'title' => Module::t('module', 'Delete'),
+                                    'data' => [
+                                        'toggle' => 'tooltip',
+                                        'method' => 'post',
+                                        'confirm' => Module::t('module', 'Are you sure you want to delete this item?'),
+                                        'pjax' => 0,
+                                    ],
+                                ]);
+                            },
+                        ],
+                    ],
                 ],
             ]); ?>
         </div>
-        <div class="box-footer">
-        </div>
+        <div class="box-footer"></div>
     </div>
 </div>

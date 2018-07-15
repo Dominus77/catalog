@@ -24,6 +24,8 @@ git clone https://github.com/Dominus77/catalog.git modules/catalog
 
 [2amigos/yii2-date-time-picker-widget](https://github.com/2amigos/yii2-date-time-picker-widget)
 
+[kartik-v/yii2-widget-select2](https://github.com/kartik-v/yii2-widget-select2)
+
 ## Подключение
 
 common\config\main.php

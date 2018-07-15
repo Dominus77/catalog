@@ -135,6 +135,13 @@ return [
 
     'Add Products' => 'Add Products',
     'Add products in promotion' => 'Add products in promotion',
+    'Select a products ...' => 'Select a products ...',
+    'Add a products ...' => 'Add a products ...',
+
+    'Promotion' => 'Promotion',
+    'Add Promotion' => 'Add Promotion',
+    'Add a promotion ...' => 'Add a promotion ...',
+    'Select a promotion ...' => 'Select a promotion ...',
 
     'Are you sure?' => 'Are you sure?',
     'You won\'t be able to revert this!' => 'You won\'t be able to revert this!',

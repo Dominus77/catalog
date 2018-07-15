@@ -6,6 +6,7 @@ use Yii;
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use yii\behaviors\TimestampBehavior;
+use yii\data\ActiveDataProvider;
 use modules\catalog\Module;
 
 /**
@@ -24,13 +25,15 @@ use modules\catalog\Module;
  * @property CatalogPromotionProduct[] $catalogPromotionProducts
  * @property array $statusesArray
  * @property string $statusLabelName
+ * @property string $startAt
+ * @property string $endAt
  */
 class CatalogPromotion extends \yii\db\ActiveRecord
 {
     const STATUS_DRAFT = 0;
     const STATUS_PUBLISH = 1;
 
-    const SCENARIO_CHANGE_STATUS = 'status';
+    public $products;
 
     /**
      * {@inheritdoc}
@@ -63,7 +66,7 @@ class CatalogPromotion extends \yii\db\ActiveRecord
             [['discount', 'status'], 'integer'],
             [['name'], 'string', 'max' => 255],
             //[['start_at', 'end_at'], 'date', 'format' => 'dd.mm.yyyy H:ii'],
-            [['start_at', 'end_at'], 'safe'],
+            [['startAt', 'endAt'], 'safe'],
             //['start_at', 'validateDates'],
         ];
     }
@@ -94,6 +97,9 @@ class CatalogPromotion extends \yii\db\ActiveRecord
             'end_at' => Module::t('module', 'End'),
             'created_at' => Module::t('module', 'Created'),
             'updated_at' => Module::t('module', 'Updated'),
+            'products' => Module::t('module', 'Products'),
+            'startAt' => Module::t('module', 'Start'),
+            'endAt' => Module::t('module', 'End'),
         ];
     }
 
@@ -146,6 +152,40 @@ class CatalogPromotion extends \yii\db\ActiveRecord
     }
 
     /**
+     * @param $value
+     */
+    public function setStartAt($value)
+    {
+        $this->start_at = strtotime($value);
+    }
+
+    /**
+     * @return string
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function getStartAt()
+    {
+        return Yii::$app->formatter->asDatetime($this->start_at, 'php:d-m-Y H:i');
+    }
+
+    /**
+     * @param $value
+     */
+    public function setEndAt($value)
+    {
+        $this->end_at = strtotime($value);
+    }
+
+    /**
+     * @return string
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function getEndAt()
+    {
+        return Yii::$app->formatter->asDatetime($this->end_at, 'php:d-m-Y H:i');
+    }
+
+    /**
      * Set Status
      * @return int|string
      */
@@ -162,18 +202,19 @@ class CatalogPromotion extends \yii\db\ActiveRecord
     }
 
     /**
-     * Действия перед сохранением
-     * @inheritdoc
+     * @return ActiveDataProvider
      */
-    public function beforeSave($insert)
+    public function getPromotionProducts()
     {
-        if (parent::beforeSave($insert)) {
-            if ($this->scenario != self::SCENARIO_CHANGE_STATUS) {
-                $this->start_at = strtotime($this->start_at);
-                $this->end_at = strtotime($this->end_at);
-            }
-            return true;
-        }
-        return false;
+        $relations = $this->getCatalogPromotionProducts()->all();
+        $productsId = ArrayHelper::getColumn($relations, 'product_id');
+        $query = CatalogProduct::find()->where(['id' => $productsId]);
+        $provider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
+        return $provider;
     }
 }

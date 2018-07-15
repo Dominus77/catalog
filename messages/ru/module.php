@@ -135,6 +135,13 @@ return [
 
     'Add Products' => 'Добавить товары',
     'Add products in promotion' => 'Добавить товары в акцию',
+    'Select a products ...' => 'Выберите товары ...',
+    'Add a products ...' => 'Добавьте товары ...',
+
+    'Promotion' => 'Акция',
+    'Add Promotion' => 'Добавить акцию',
+    'Add a promotion ...' => 'Добавьте акцию ...',
+    'Select a promotion ...' => 'Выберите акцию ...',
 
     'Are you sure?' => 'Вы уверены?',
     'You won\'t be able to revert this!' => 'Действие является не обратимым!',

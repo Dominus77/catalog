@@ -5,6 +5,7 @@ namespace modules\catalog\controllers\backend;
 use Yii;
 use modules\catalog\models\CatalogPromotion;
 use modules\catalog\models\search\CatalogPromotionSearch;
+use modules\catalog\models\CatalogPromotionProduct;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\web\NotFoundHttpException;
@@ -27,6 +28,7 @@ class PromotionController extends Controller
                 'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
+                    'delete-product' => ['POST'],
                 ],
             ],
         ];
@@ -56,8 +58,10 @@ class PromotionController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'dataProvider' => $model->getPromotionProducts()
         ]);
     }
 
@@ -85,7 +89,6 @@ class PromotionController extends Controller
      * @param integer $id
      * @return string|Response
      * @throws NotFoundHttpException
-     * @throws \yii\base\InvalidConfigException
      */
     public function actionUpdate($id)
     {
@@ -94,8 +97,6 @@ class PromotionController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
-        $model->start_at = Yii::$app->formatter->asDatetime($model->start_at, 'php:d-m-Y H:i');
-        $model->end_at = Yii::$app->formatter->asDatetime($model->end_at, 'php:d-m-Y H:i');
         return $this->render('update', [
             'model' => $model,
         ]);
@@ -127,7 +128,6 @@ class PromotionController extends Controller
     protected function processChangeStatus($id)
     {
         $model = $this->findModel($id);
-        $model->scenario = $model::SCENARIO_CHANGE_STATUS;
         $model->setStatus();
         $model->save(false);
         return $model;
@@ -147,6 +147,16 @@ class PromotionController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    /**
+     * @param integer $id
+     * @return Response
+     */
+    public function actionDeleteProduct($id)
+    {
+        CatalogPromotionProduct::deleteAll(['product_id' => $id]);
+        return $this->redirect(Yii::$app->request->referrer);
     }
 
     /**

@@ -30,7 +30,7 @@ class ProductController extends Controller
     {
         return [
             'access' => [
-                'class' => AccessControl::className(),
+                'class' => AccessControl::class,
                 'rules' => [
                     [
                         'allow' => true,
@@ -39,7 +39,7 @@ class ProductController extends Controller
                 ],
             ],
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -78,7 +78,7 @@ class ProductController extends Controller
 
     /**
      * Display a detail for GridView
-     * @param $id
+     * @param integer $id
      * @return string
      * @throws NotFoundHttpException
      */
@@ -91,7 +91,7 @@ class ProductController extends Controller
     }
 
     /**
-     * @param $id
+     * @param integer $id
      * @return string
      * @throws NotFoundHttpException
      */
@@ -122,14 +122,13 @@ class ProductController extends Controller
     }
 
     /**
-     * @param $id
+     * @param integer $id
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException
      */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -140,7 +139,7 @@ class ProductController extends Controller
     }
 
     /**
-     * @param $id
+     * @param integer $id
      */
     public function actionImage($id)
     {
@@ -148,7 +147,7 @@ class ProductController extends Controller
     }
 
     /**
-     * @param $id
+     * @param integer $id
      * @return array|\yii\web\Response
      * @throws NotFoundHttpException
      */
@@ -175,7 +174,7 @@ class ProductController extends Controller
     }
 
     /**
-     * @param $id
+     * @param integer $id
      * @return \yii\web\Response
      * @throws NotFoundHttpException
      * @throws \Throwable

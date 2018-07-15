@@ -59,6 +59,15 @@ $this->registerJs("$('#status_link_" . $model->id . "').click(handleAjaxLink);",
                     ],
                     'meta_description',
                     'meta_keywords',
+                    [
+                        'attribute' => 'promotion',
+                        'format' => 'raw',
+                        'value' => function ($data) {
+                            return Html::a($data->catalogProductPromotion->promotion->name, [
+                                'promotion/view', 'id' => $data->catalogProductPromotion->promotion->id
+                            ]);
+                        },
+                    ],
                 ],
             ]) ?>
         </div>
