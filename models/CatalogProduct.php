@@ -272,7 +272,7 @@ class CatalogProduct extends \yii\db\ActiveRecord
      * @param $provider
      * @param $fieldName1
      * @param $fieldName2
-     * @return string
+     * @return float|int
      */
     public static function getTotal($provider, $fieldName1, $fieldName2)
     {
@@ -280,7 +280,7 @@ class CatalogProduct extends \yii\db\ActiveRecord
         foreach ($provider as $item) {
             $total += $item[$fieldName1] * $item[$fieldName2];
         }
-        return Yii::$app->formatter->asDecimal($total, 2);
+        return $total;
     }
 
     /**

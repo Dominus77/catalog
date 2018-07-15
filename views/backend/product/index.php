@@ -5,6 +5,7 @@ use yii\helpers\Url;
 use dimmitri\grid\ExpandRowColumn;
 use yii\grid\GridView;
 use modules\catalog\assets\BackendAsset;
+use modules\catalog\helpers\ShopHelper;
 use modules\catalog\Module;
 
 /* @var $this yii\web\View */
@@ -151,14 +152,13 @@ $this->params['breadcrumbs'][] = Module::t('module', 'Products');
                                 'pjax' => true,
                             ],
                         ]),
-                        'format' => ['decimal', 2],
                         'value' => function ($data) {
-                            return $data->retail;
+                            return ShopHelper::Currency($data->retail);
                         },
                         'contentOptions' => [
                             'class' => 'col-lg-1 text-right',
                         ],
-                        'footer' => $searchModel::getTotal($dataProvider->models, 'retail', 'availability'),
+                        'footer' => ShopHelper::Currency($searchModel::getTotal($dataProvider->models, 'retail', 'availability')),
                         'footerOptions' => [
                             'class' => 'col-md-1 text-right text-bold',
                         ],

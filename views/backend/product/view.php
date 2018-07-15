@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\DetailView;
+use modules\catalog\helpers\ShopHelper;
 use modules\catalog\Module;
 
 /* @var $this yii\web\View */
@@ -33,7 +34,10 @@ $this->registerJs("$('#status_link_" . $model->id . "').click(handleAjaxLink);",
                     'name',
                     'slug',
                     'availability',
-                    'retail',
+                    [
+                        'attribute' => 'retail',
+                        'value' => ShopHelper::Currency($model->retail),
+                    ],
                     'description:ntext',
                     [
                         'attribute' => 'category_id',
