@@ -27,6 +27,13 @@ class ProductAsset extends AssetBundle
         ];
     }
 
+    /**
+     * @var array
+     */
+    public $publishOptions = [
+        'forceCopy' => true
+    ];
+
     public $depends = [
         'yii\web\JqueryAsset',
         'yii\bootstrap\BootstrapAsset',

@@ -25,7 +25,17 @@ use modules\catalog\Module;
 
             <div class="row">
                 <div class="col-xs-12 col-md-8">
-                    <p class="lead"><?= ShopHelper::Currency($model->retail) ?> </p>
+                    <?php if ($discount = $model->catalogProductPromotion->promotion->discount) : ?>
+                        <p class="lead">
+                            <small class="old-retail"><?= ShopHelper::Currency($model->retail) ?></small>
+                            <br>
+                            <?= ShopHelper::Currency(ShopHelper::Discount($model->retail, $model->catalogProductPromotion->promotion->discount)) ?>
+                        </p>
+                    <?php else: ?>
+                        <p class="lead">
+                            <?= ShopHelper::Currency($model->retail) ?>
+                        </p>
+                    <?php endif; ?>
                 </div>
                 <?php $form = ActiveForm::begin([
                     'action' => Url::to(['cart/add-in-cart', 'id' => $model->id]),

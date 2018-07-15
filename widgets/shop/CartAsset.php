@@ -34,6 +34,6 @@ class CartAsset extends AssetBundle
      * @var array
      */
     public $publishOptions = [
-        'forceCopy' => true
+        'forceCopy' => false
     ];
 }

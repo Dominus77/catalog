@@ -63,19 +63,31 @@
 .size::after {
     content: ''; /* Выводим элемент */
     position: absolute; /* Абсолютное позиционирование */
-    right: 0; top: 0; /* Положение элемента */
+    right: 0;
+    top: 0; /* Положение элемента */
     width: 40px; /* Ширина градиента*/
     height: 100%; /* Высота родителя */
     /* Градиент */
-    background: -moz-linear-gradient(left, rgba(255,255,255, 0.2), #fff 100%);
-    background: -webkit-linear-gradient(left, rgba(255,255,255, 0.2), #fff 100%);
-    background: -o-linear-gradient(left, rgba(255,255,255, 0.2), #fff 100%);
-    background: -ms-linear-gradient(left, rgba(255,255,255, 0.2), #fff 100%);
-    background: linear-gradient(to right, rgba(255,255,255, 0.2), #fff 100%);
+    background: -moz-linear-gradient(left, rgba(255, 255, 255, 0.2), #fff 100%);
+    background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0.2), #fff 100%);
+    background: -o-linear-gradient(left, rgba(255, 255, 255, 0.2), #fff 100%);
+    background: -ms-linear-gradient(left, rgba(255, 255, 255, 0.2), #fff 100%);
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.2), #fff 100%);
 }
+
 .list-group {
     margin-bottom: 10px;
 }
+
 .pagination {
     margin-top: 0;
+}
+
+.retail {
+    text-decoration: none;
+}
+
+.old-retail {
+    text-decoration: line-through;
+    color: #6d7070;
 }
