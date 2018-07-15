@@ -97,7 +97,8 @@ $language = substr(\Yii::$app->language, 0, 2);
                             'template' => '{addon}{input}',
                             'clientOptions' => [
                                 'autoclose' => true,
-                                'format' => 'dd-mm-yyyy'
+                                'format' => 'dd-mm-yyyy',
+                                'todayHighlight' => true,
                             ],
                             'options' => [
                                 'placeholder' => Module::t('module', '- select -'),
@@ -119,7 +120,8 @@ $language = substr(\Yii::$app->language, 0, 2);
                             'template' => '{addon}{input}',
                             'clientOptions' => [
                                 'autoclose' => true,
-                                'format' => 'dd-mm-yyyy'
+                                'format' => 'dd-mm-yyyy',
+                                'todayHighlight' => true,
                             ],
                             'options' => [
                                 'placeholder' => Module::t('module', '- select -'),

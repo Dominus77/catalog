@@ -165,7 +165,7 @@ class CatalogPromotion extends \yii\db\ActiveRecord
      */
     public function getStartAt()
     {
-        return Yii::$app->formatter->asDatetime($this->start_at, 'php:d-m-Y H:i');
+        return $this->start_at ? Yii::$app->formatter->asDatetime($this->start_at, 'php:d-m-Y H:i') : '';
     }
 
     /**
@@ -182,7 +182,7 @@ class CatalogPromotion extends \yii\db\ActiveRecord
      */
     public function getEndAt()
     {
-        return Yii::$app->formatter->asDatetime($this->end_at, 'php:d-m-Y H:i');
+        return $this->end_at ? Yii::$app->formatter->asDatetime($this->end_at, 'php:d-m-Y H:i') : '';
     }
 
     /**

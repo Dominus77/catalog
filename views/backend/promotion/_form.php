@@ -39,7 +39,8 @@ $language = substr(\Yii::$app->language, 0, 2);
                 'clientOptions' => [
                     'autoclose' => true,
                     'format' => 'dd-mm-yyyy HH:ii',
-                    'todayBtn' => true
+                    'todayBtn' => true,
+                    'todayHighlight' => true,
                 ]
             ]); ?>
         </div>
@@ -51,7 +52,8 @@ $language = substr(\Yii::$app->language, 0, 2);
                 'clientOptions' => [
                     'autoclose' => true,
                     'format' => 'dd-mm-yyyy HH:ii',
-                    'todayBtn' => true
+                    'todayBtn' => true,
+                    'todayHighlight' => true,
                 ]
             ]); ?>
         </div>
