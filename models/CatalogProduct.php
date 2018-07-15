@@ -212,6 +212,14 @@ class CatalogProduct extends \yii\db\ActiveRecord
     }
 
     /**
+     * @return int|string
+     */
+    public static function getCount()
+    {
+        return static::find()->count();
+    }
+
+    /**
      * @return array|null|\yii\db\ActiveRecord[]
      */
     public function getProductsAll()
@@ -476,8 +484,8 @@ class CatalogProduct extends \yii\db\ActiveRecord
      */
     public function afterSave($insert, $changedAttributes)
     {
-        CatalogPromotionProduct::deleteAll(['product_id' => $this->id]);
         if (!empty($this->_promotion)) {
+            CatalogPromotionProduct::deleteAll(['product_id' => $this->id]);
             self::getDb()->createCommand()
                 ->insert(CatalogPromotionProduct::tableName(), ['product_id' => $this->id, 'promotion_id' => $this->_promotion])->execute();
         }

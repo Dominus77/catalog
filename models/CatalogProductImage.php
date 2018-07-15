@@ -46,10 +46,10 @@ class CatalogProductImage extends \yii\db\ActiveRecord
     {
         return [
             'timestamp' => [
-                'class' => TimestampBehavior::className(),
+                'class' => TimestampBehavior::class,
             ],
             'positionBehavior' => [
-                'class' => PositionBehavior::className(),
+                'class' => PositionBehavior::class,
                 'positionAttribute' => 'position',
                 'groupAttributes' => [
                     'product_id',
@@ -67,7 +67,7 @@ class CatalogProductImage extends \yii\db\ActiveRecord
             [['product_id'], 'required'],
             [['product_id', 'position', 'created_at', 'updated_at', 'status'], 'integer'],
             [['image'], 'string', 'max' => 255],
-            [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => CatalogProduct::className(), 'targetAttribute' => ['product_id' => 'id']],
+            [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => CatalogProduct::class, 'targetAttribute' => ['product_id' => 'id']],
         ];
     }
 
@@ -103,7 +103,7 @@ class CatalogProductImage extends \yii\db\ActiveRecord
      */
     public function getProduct()
     {
-        return $this->hasOne(CatalogProduct::className(), ['id' => 'product_id']);
+        return $this->hasOne(CatalogProduct::class, ['id' => 'product_id']);
     }
 
     /**
@@ -176,6 +176,17 @@ class CatalogProductImage extends \yii\db\ActiveRecord
         return '/'.$this->getDir() . $image;
     }
 
+    /**
+     * @return int|string
+     */
+    public static function getCount()
+    {
+        return static::find()->count();
+    }
+
+    /**
+     * @return array|\yii\db\ActiveRecord[]
+     */
     public function getImagesAll()
     {
         $model = new CatalogProductImage();

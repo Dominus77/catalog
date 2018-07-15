@@ -202,6 +202,14 @@ class CatalogPromotion extends \yii\db\ActiveRecord
     }
 
     /**
+     * @return int|string
+     */
+    public static function getCount()
+    {
+        return static::find()->count();
+    }
+
+    /**
      * @return ActiveDataProvider
      */
     public function getPromotionProducts()

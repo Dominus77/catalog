@@ -7,6 +7,7 @@ use yii\filters\AccessControl;
 use modules\catalog\models\CatalogCategory;
 use modules\catalog\models\CatalogProduct;
 use modules\catalog\models\CatalogProductImage;
+use modules\catalog\models\CatalogPromotion;
 use modules\catalog\Module;
 
 /**
@@ -22,7 +23,7 @@ class DefaultController extends Controller
     {
         return [
             'access' => [
-                'class' => AccessControl::className(),
+                'class' => AccessControl::class,
                 'rules' => [
                     [
                         'allow' => true,
@@ -39,13 +40,11 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
-        $category = new CatalogCategory();
-        $product = new CatalogProduct();
-        $image = new CatalogProductImage();
         return $this->render('index', [
-            'category' => $category->getCategoriesAll(),
-            'product' => $product->getProductsAll(),
-            'image' => $image->getImagesAll(),
+            'category' => CatalogCategory::getCount(),
+            'product' => CatalogProduct::getCount(),
+            'image' => CatalogProductImage::getCount(),
+            'promotions' => CatalogPromotion::getCount(),
         ]);
     }
 }

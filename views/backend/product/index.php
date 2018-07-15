@@ -4,11 +4,14 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use dimmitri\grid\ExpandRowColumn;
 use yii\grid\GridView;
+use modules\catalog\assets\BackendAsset;
 use modules\catalog\Module;
 
 /* @var $this yii\web\View */
 /* @var $searchModel modules\catalog\models\search\CatalogProductSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+
+BackendAsset::register($this);
 
 $this->title = Module::t('module', 'Catalog');
 $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['/catalog/default/index']];
@@ -87,6 +90,12 @@ $this->params['breadcrumbs'][] = Module::t('module', 'Products');
                         'attribute' => 'position',
                         'label' => '#',
                         'filter' => false,
+                        'contentOptions' => function ($data) {
+                            if ($data->catalogProductPromotion->promotion->name) {
+                                return ['class' => 'hatching-green'];
+                            }
+                            return [];
+                        },
                     ],
                     [
                         'class' => ExpandRowColumn::class,

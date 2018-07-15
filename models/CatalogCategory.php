@@ -65,13 +65,13 @@ class CatalogCategory extends \yii\db\ActiveRecord
     {
         return [
             'tree' => [
-                'class' => NestedSetsBehavior::className(),
+                'class' => NestedSetsBehavior::class,
             ],
             'timestamp' => [
-                'class' => TimestampBehavior::className(),
+                'class' => TimestampBehavior::class,
             ],
             'slug' => [
-                'class' => SluggableBehavior::className(),
+                'class' => SluggableBehavior::class,
                 'attribute' => 'name',
                 'slugAttribute' => 'slug',
             ],
@@ -167,6 +167,14 @@ class CatalogCategory extends \yii\db\ActiveRecord
                 'pjax' => 0,
             ],
         ]) : '';
+    }
+
+    /**
+     * @return int|string
+     */
+    public static function getCount()
+    {
+        return static::find()->count();
     }
 
     /**
