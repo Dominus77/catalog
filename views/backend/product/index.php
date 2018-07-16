@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use dimmitri\grid\ExpandRowColumn;
 use yii\grid\GridView;
+use yii\bootstrap\ButtonDropdown;
 use modules\catalog\helpers\ShopHelper;
 use modules\catalog\Module;
 
@@ -25,26 +26,6 @@ $this->params['breadcrumbs'][] = Module::t('module', 'Products');
         </div>
         <div class="box-body">
             <div class="pull-left">
-                <p>
-                    <?= Html::a('<span class="glyphicon glyphicon-export"></span> ', ['export', 'params' => Yii::$app->request->queryParams], [
-                        'class' => 'btn btn-default',
-                        'title' => Module::t('module', 'Export'),
-                        'data' => [
-                            'toggle' => 'tooltip',
-                            'placement' => 'top',
-                            'pjax' => 0,
-                        ],
-                    ]) ?>
-                    <?= Html::a('<span class="glyphicon glyphicon-import"></span> ', ['import', 'params' => Yii::$app->request->queryParams], [
-                        'class' => 'btn btn-default',
-                        'title' => Module::t('module', 'Import'),
-                        'data' => [
-                            'toggle' => 'tooltip',
-                            'placement' => 'top',
-                            'pjax' => 0,
-                        ],
-                    ]) ?>
-                </p>
                 <?= common\widgets\PageSize::widget([
                     'label' => '',
                     'defaultPageSize' => 25,
@@ -56,6 +37,26 @@ $this->params['breadcrumbs'][] = Module::t('module', 'Products');
             </div>
             <div class="pull-right">
                 <p>
+                    <?= ButtonDropdown::widget([
+                        'label' => '<span class="fa fa-file-excel-o"></span> ' . Module::t('module', 'Excel'),
+                        'encodeLabel' => false,
+                        'dropdown' => [
+                            'encodeLabels' => false,
+                            'items' => [
+                                [
+                                    'label' => '<span class="glyphicon glyphicon-export"></span> ' . Module::t('module', 'Export'),
+                                    'url' => ['export', 'params' => Yii::$app->request->queryParams],
+                                ],
+                                [
+                                    'label' => '<span class="glyphicon glyphicon-import"></span> ' . Module::t('module', 'Import'),
+                                    'url' => ['import', 'params' => Yii::$app->request->queryParams],
+                                ],
+                            ],
+                        ],
+                        'options' => [
+                            'class' => 'btn btn-default',
+                        ],
+                    ]); ?>
                     <?= Html::a('<span class="fa fa-plus"></span> ', ['create'], [
                         'class' => 'btn btn-success',
                         'title' => Module::t('module', 'Create Product'),
