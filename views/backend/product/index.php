@@ -4,15 +4,12 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use dimmitri\grid\ExpandRowColumn;
 use yii\grid\GridView;
-use modules\catalog\assets\BackendAsset;
 use modules\catalog\helpers\ShopHelper;
 use modules\catalog\Module;
 
 /* @var $this yii\web\View */
 /* @var $searchModel modules\catalog\models\search\CatalogProductSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-
-BackendAsset::register($this);
 
 $this->title = Module::t('module', 'Catalog');
 $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['/catalog/default/index']];
