@@ -464,16 +464,14 @@ class CatalogProduct extends \yii\db\ActiveRecord
 
     /**
      * @return bool
-     * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
      */
     public function beforeDelete()
     {
         parent::beforeDelete();
         // Удаляем изображения товара
-        foreach (CatalogProductImage::find()->where(['product_id' => $this->id])->all() as $image) {
-            $image->delete();
-        }
+        CatalogProductImage::deleteAll(['product_id' => $this->id]);
+        // Удаляем связь акций с товаром
+        CatalogPromotionProduct::deleteAll(['product_id' => $this->id]);
         return true;
     }
 
@@ -484,11 +482,11 @@ class CatalogProduct extends \yii\db\ActiveRecord
      */
     public function afterSave($insert, $changedAttributes)
     {
+        parent::afterSave($insert, $changedAttributes);
         if (!empty($this->_promotion)) {
             CatalogPromotionProduct::deleteAll(['product_id' => $this->id]);
             self::getDb()->createCommand()
                 ->insert(CatalogPromotionProduct::tableName(), ['product_id' => $this->id, 'promotion_id' => $this->_promotion])->execute();
         }
-        parent::afterSave($insert, $changedAttributes);
     }
 }

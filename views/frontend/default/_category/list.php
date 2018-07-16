@@ -4,7 +4,6 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\helpers\HtmlPurifier;
 use yii\widgets\ActiveForm;
-use modules\catalog\helpers\ShopHelper;
 use modules\catalog\Module;
 
 /* @var $model modules\catalog\models\CatalogProduct */
@@ -25,17 +24,7 @@ use modules\catalog\Module;
 
             <div class="row">
                 <div class="col-xs-12 col-md-8">
-                    <?php if ($discount = $model->catalogProductPromotion->promotion->discount) : ?>
-                        <span class="lead">
-                            <small class="old-retail"><?= ShopHelper::Currency($model->retail) ?></small>
-                            <br>
-                            <?= ShopHelper::Currency(ShopHelper::Discount($model->retail, $model->catalogProductPromotion->promotion->discount)) ?>
-                        </span>
-                    <?php else: ?>
-                        <span class="lead">
-                            <?= ShopHelper::Currency($model->retail) ?>
-                        </span>
-                    <?php endif; ?>
+                    <?= $this->render('_price', ['model' => $model]) ?>
                 </div>
                 <?php $form = ActiveForm::begin([
                     'action' => Url::to(['cart/add-in-cart', 'id' => $model->id]),
