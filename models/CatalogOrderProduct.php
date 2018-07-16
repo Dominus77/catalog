@@ -41,7 +41,7 @@ class CatalogOrderProduct extends \yii\db\ActiveRecord
     {
         return [
             'timestamp' => [
-                'class' => TimestampBehavior::className(),
+                'class' => TimestampBehavior::class,
             ],
         ];
     }
@@ -56,8 +56,8 @@ class CatalogOrderProduct extends \yii\db\ActiveRecord
             [['order_id', 'count'], 'required', 'on' => self::SCENARIO_ADMIN_ADD_PRODUCT],
             [['product_id', 'order_id', 'count', 'created_at', 'updated_at'], 'integer'],
             [['price'], 'number', 'numberPattern' => '/^\s*[-+]?[0-9]*[.,]?[0-9]+([eE][-+]?[0-9]+)?\s*$/'],
-            [['order_id'], 'exist', 'skipOnError' => true, 'targetClass' => CatalogOrder::className(), 'targetAttribute' => ['order_id' => 'id'], 'on' => self::SCENARIO_ADMIN_ADD_PRODUCT],
-            [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => CatalogProduct::className(), 'targetAttribute' => ['product_id' => 'id']],
+            [['order_id'], 'exist', 'skipOnError' => true, 'targetClass' => CatalogOrder::class, 'targetAttribute' => ['order_id' => 'id'], 'on' => self::SCENARIO_ADMIN_ADD_PRODUCT],
+            [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => CatalogProduct::class, 'targetAttribute' => ['product_id' => 'id']],
         ];
     }
 

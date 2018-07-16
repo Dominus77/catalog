@@ -14,10 +14,10 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use modules\catalog\Module;
-use yii\helpers\VarDumper;
 
 /**
- * ProductController implements the CRUD actions for CatalogProduct model.
+ * Class ProductController
+ * @package modules\catalog\controllers\backend
  */
 class ProductController extends Controller
 {

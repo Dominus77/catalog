@@ -21,8 +21,5 @@ use modules\catalog\Module;
     <div class="col-md-6">
         <?= $model->description ?>
         <hr>
-        <?= Html::a($model->catalogProductPromotion->promotion->name, [
-            'promotion/view', 'id' => $model->catalogProductPromotion->promotion->id
-        ]); ?>
     </div>
 </div>

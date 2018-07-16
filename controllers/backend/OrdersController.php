@@ -22,7 +22,7 @@ class OrdersController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -48,7 +48,8 @@ class OrdersController extends Controller
     /**
      * Displays a single CatalogOrder model.
      * @param integer $id
-     * @return mixed
+     * @return string
+     * @throws NotFoundHttpException
      */
     public function actionView($id)
     {
@@ -79,7 +80,8 @@ class OrdersController extends Controller
      * Updates an existing CatalogOrder model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
-     * @return mixed
+     * @return string|\yii\web\Response
+     * @throws NotFoundHttpException
      */
     public function actionUpdate($id)
     {
@@ -98,7 +100,10 @@ class OrdersController extends Controller
      * Deletes an existing CatalogOrder model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
-     * @return mixed
+     * @return \yii\web\Response
+     * @throws NotFoundHttpException
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionDelete($id)
     {

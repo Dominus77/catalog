@@ -13,30 +13,15 @@ class Module extends \yii\base\Module
 {
     /**
      * Денежная еденица
-     * &#8381; - Рубль
-     * &#36; - Доллар США
-     * &euro; - Евро
-     * &pound; - Фунт (символ фунта стерлингов)
-     * &yen; - Йена (знак Японской йены)
-     * &#65509; - Китайский юань
-     * &#8372; - Гривна
-     * &cent; - Цент
-     * &curren; - Знак валюты
      * @var string
      */
-    public static $currencyUnit = 'RUB'; //'&#8381;';
+    public static $currencyUnit = 'RUB';
 
     /**
      * Разрядность после точки в цене
      * @var int
      */
     public static $maxFactionDigits = 2;
-
-    /**
-     * Общая скидка в %
-     * @var int
-     */
-    public static $discount = 5; // %
 
     /**
      * @var string

@@ -32,14 +32,11 @@ use modules\catalog\Module;
  *
  * @property CatalogCategory $category
  * @property CatalogProductImage[] $catalogProductImages
- * @property CatalogPromotionProduct[] $catalogProductPromotion
  */
 class CatalogProduct extends \yii\db\ActiveRecord
 {
     const STATUS_DRAFT = 0;
     const STATUS_PUBLISH = 1;
-
-    private $_promotion;
 
     /**
      * @inheritdoc
@@ -82,14 +79,13 @@ class CatalogProduct extends \yii\db\ActiveRecord
         return [
             [['name', 'category_id', 'code'], 'required'],
             [['description'], 'string'],
-            [['category_id', 'position', 'created_at', 'updated_at', 'status', 'promotion'], 'integer'],
+            [['category_id', 'position', 'created_at', 'updated_at', 'status'], 'integer'],
             [['availability'], 'integer'],
             [['retail'], 'number', 'numberPattern' => '/^\s*[-+]?[0-9]*[.,]?[0-9]+([eE][-+]?[0-9]+)?\s*$/'],
             [['code', 'name', 'slug'], 'string', 'max' => 255],
             [['meta_description'], 'string', 'max' => 200],
             [['meta_keywords'], 'string', 'max' => 250],
-            [['slug'], 'unique'],
-            [['code'], 'unique'],
+            [['slug', 'code'], 'unique'],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => CatalogCategory::class, 'targetAttribute' => ['category_id' => 'id']],
         ];
     }
@@ -114,7 +110,6 @@ class CatalogProduct extends \yii\db\ActiveRecord
             'status' => Module::t('module', 'Status'),
             'meta_description' => Module::t('module', 'Meta-description'),
             'meta_keywords' => Module::t('module', 'Meta-keywords'),
-            'promotion' => Module::t('module', 'Promotion'),
         ];
     }
 
@@ -145,14 +140,6 @@ class CatalogProduct extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery|CatalogPromotionProduct
-     */
-    public function getCatalogProductPromotion()
-    {
-        return $this->hasOne(CatalogPromotionProduct::class, ['product_id' => 'id']);
-    }
-
-    /**
      * @param null $id
      * @return array|null
      */
@@ -161,7 +148,7 @@ class CatalogProduct extends \yii\db\ActiveRecord
         $model = new CatalogProductImage();
         $id = $id ? $id : $this->id;
         $dir = $model->getDir($id);
-        if ($images = $this->productImages) {
+        if ($images = $this->getProductImages()->all()) {
             $pictures = [];
             foreach ($images as $value) {
                 $pictures[] = '/' . $dir . $value->image;
@@ -434,35 +421,6 @@ class CatalogProduct extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return array
-     */
-    public function getPromotionsArray()
-    {
-        $model = CatalogPromotion::find()
-            ->where(['status' => CatalogPromotion::STATUS_PUBLISH])
-            ->all();
-        $promotions = ArrayHelper::map($model, 'id', 'name');
-        return $promotions;
-    }
-
-    /**
-     * @param integer $promotionId
-     */
-    public function setPromotion($promotionId)
-    {
-        $this->_promotion = $promotionId;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPromotion()
-    {
-        $productPromotion = $this->getCatalogProductPromotion()->one();
-        return $productPromotion->promotion_id;
-    }
-
-    /**
      * @return bool
      */
     public function beforeDelete()
@@ -470,23 +428,6 @@ class CatalogProduct extends \yii\db\ActiveRecord
         parent::beforeDelete();
         // Удаляем изображения товара
         CatalogProductImage::deleteAll(['product_id' => $this->id]);
-        // Удаляем связь акций с товаром
-        CatalogPromotionProduct::deleteAll(['product_id' => $this->id]);
         return true;
-    }
-
-    /**
-     * @param bool $insert
-     * @param array $changedAttributes
-     * @throws \yii\db\Exception
-     */
-    public function afterSave($insert, $changedAttributes)
-    {
-        parent::afterSave($insert, $changedAttributes);
-        if (!empty($this->_promotion)) {
-            CatalogPromotionProduct::deleteAll(['product_id' => $this->id]);
-            self::getDb()->createCommand()
-                ->insert(CatalogPromotionProduct::tableName(), ['product_id' => $this->id, 'promotion_id' => $this->_promotion])->execute();
-        }
     }
 }

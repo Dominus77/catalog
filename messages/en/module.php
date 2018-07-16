@@ -13,7 +13,6 @@ return [
     'Image' => 'Image',
     'File' => 'File',
     'Cart' => 'Cart',
-    'Promotions' => 'Promotions',
 
     'Orders' => 'Orders',
     'Order' => 'Order',
@@ -25,7 +24,6 @@ return [
     'Address' => 'Address',
     'Count' => 'Amount',
     'New Order' => 'New Order',
-    'New Promotion' => 'New Promotion',
 
     'File Microsoft Excel' => 'File Microsoft Excel',
     'The import is complete.' => 'The import is complete.',
@@ -45,7 +43,6 @@ return [
     'Create Order' => 'Create Order',
     'Add Product in Order' => 'Add Product in Order',
     'New Orders Product' => 'New Orders Product',
-    'Create Promotion' => 'Create Promotion',
 
     'ID' => 'ID',
     'L.Key' => 'L.Key',
@@ -132,16 +129,6 @@ return [
 
     'Click to change the status.' => 'Click to change the status.',
     'Error!' => 'Error!',
-
-    'Add Products' => 'Add Products',
-    'Add products in promotion' => 'Add products in promotion',
-    'Select a products ...' => 'Select a products ...',
-    'Add a products ...' => 'Add a products ...',
-
-    'Promotion' => 'Promotion',
-    'Add Promotion' => 'Add Promotion',
-    'Add a promotion ...' => 'Add a promotion ...',
-    'Select a promotion ...' => 'Select a promotion ...',
 
     'Are you sure?' => 'Are you sure?',
     'You won\'t be able to revert this!' => 'You won\'t be able to revert this!',

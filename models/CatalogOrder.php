@@ -22,6 +22,8 @@ use yii\helpers\VarDumper;
  * @property integer $updated_at
  *
  * @property CatalogOrderProduct[] $catalogOrderProducts
+ * @property float|int $amount
+ * @property integer $productsCount
  */
 class CatalogOrder extends \yii\db\ActiveRecord
 {
@@ -232,6 +234,14 @@ class CatalogOrder extends \yii\db\ActiveRecord
             $total += $product->price * $product->count;
         }
         return $total;
+    }
+
+    /**
+     * @return int|string
+     */
+    public static function getCount()
+    {
+        return static::find()->where(['status' => self::STATUS_ORDER_NEW])->count();
     }
 
     /**

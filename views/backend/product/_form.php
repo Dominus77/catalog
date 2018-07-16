@@ -76,10 +76,5 @@ use modules\catalog\Module;
         'placeholder' => Module::t('module', 'Meta-keywords'),
     ]) ?>
 
-    <?= $form->field($model, 'promotion')->dropDownList($model->getPromotionsArray(), [
-        'class' => 'form-control',
-        'prompt' => Module::t('module', 'Select a promotion ...'),
-    ]); ?>
-
     <?php ActiveForm::end(); ?>
 </div>

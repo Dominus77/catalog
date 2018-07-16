@@ -91,12 +91,6 @@ $this->params['breadcrumbs'][] = Module::t('module', 'Products');
                         'attribute' => 'position',
                         'label' => '#',
                         'filter' => false,
-                        'contentOptions' => function ($data) {
-                            if ($data->catalogProductPromotion->promotion->name) {
-                                return ['class' => 'hatching-green'];
-                            }
-                            return [];
-                        },
                     ],
                     [
                         'class' => ExpandRowColumn::class,

@@ -7,7 +7,6 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use modules\catalog\models\CatalogCategory;
 use modules\catalog\models\search\CatalogCategorySearch;
-use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -29,7 +28,7 @@ class CategoryController extends Controller
     {
         return [
             'access' => [
-                'class' => AccessControl::className(),
+                'class' => AccessControl::class,
                 'rules' => [
                     [
                         'allow' => true,
@@ -38,7 +37,7 @@ class CategoryController extends Controller
                 ],
             ],
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -87,7 +86,8 @@ class CategoryController extends Controller
     /**
      * Displays a single CatalogCategory model.
      * @param integer $id
-     * @return mixed
+     * @return string
+     * @throws NotFoundHttpException
      */
     public function actionView($id)
     {
@@ -98,8 +98,8 @@ class CategoryController extends Controller
 
     /**
      * Creates a new CatalogCategory model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
+     * @return string|\yii\web\Response
+     * @throws NotFoundHttpException
      */
     public function actionCreate()
     {
@@ -129,7 +129,8 @@ class CategoryController extends Controller
      * Updates an existing CatalogCategory model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
-     * @return mixed
+     * @return string|\yii\web\Response
+     * @throws NotFoundHttpException
      */
     public function actionUpdate($id)
     {
@@ -148,7 +149,8 @@ class CategoryController extends Controller
      * Clone an existing CatalogCategory model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
-     * @return mixed
+     * @return string|\yii\web\Response
+     * @throws NotFoundHttpException
      */
     public function actionClone($id)
     {
@@ -209,9 +211,10 @@ class CategoryController extends Controller
 
     /**
      * Move an existing Category model.
-     * If move is successful, the browser will be redirected to the 'index' yii2_static_pages.
+     * If move is successful, the browser will be redirected to the 'index'.
      * @param integer $id
-     * @return mixed
+     * @return string|\yii\web\Response
+     * @throws NotFoundHttpException
      */
     public function actionMove($id)
     {
@@ -222,7 +225,7 @@ class CategoryController extends Controller
             $parent = $model->parent->id;
 
             if ($model->load(Yii::$app->request->post())) {
-                if($model->parent !== $id) {
+                if ($model->parent !== $id) {
                     if ($model->parent == 0) {
                         $model->makeRoot();
                     }
@@ -258,7 +261,8 @@ class CategoryController extends Controller
      * Deletes an existing CatalogCategory model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
-     * @return mixed
+     * @return \yii\web\Response
+     * @throws NotFoundHttpException
      */
     public function actionDelete($id)
     {

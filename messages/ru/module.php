@@ -13,7 +13,6 @@ return [
     'Image' => 'Изображение',
     'File' => 'Файл',
     'Cart' => 'Корзина',
-    'Promotions' => 'Акции',
 
     'Orders' => 'Заказы',
     'Order' => 'Заказ',
@@ -25,7 +24,6 @@ return [
     'Address' => 'Адрес',
     'Count' => 'Количество',
     'New Order' => 'Новый заказ',
-    'New Promotion' => 'Новая акция',
 
     'File Microsoft Excel' => 'Файл Microsoft Excel',
     'The import is complete.' => 'Импорт завершён.',
@@ -45,7 +43,6 @@ return [
     'Create Order' => 'Создать заказ',
     'Add Product in Order' => 'Добавить товар в заказ',
     'New Orders Product' => 'Новый товар заказа',
-    'Create Promotion' => 'Создать акцию',
 
     'ID' => 'ID',
     'L.Key' => 'Л.Ключ',
@@ -132,16 +129,6 @@ return [
 
     'Click to change the status.' => 'Клик для смены статуса.',
     'Error!' => 'Ошибка!',
-
-    'Add Products' => 'Добавить товары',
-    'Add products in promotion' => 'Добавить товары в акцию',
-    'Select a products ...' => 'Выберите товары ...',
-    'Add a products ...' => 'Добавьте товары ...',
-
-    'Promotion' => 'Акция',
-    'Add Promotion' => 'Добавить акцию',
-    'Add a promotion ...' => 'Добавьте акцию ...',
-    'Select a promotion ...' => 'Выберите акцию ...',
 
     'Are you sure?' => 'Вы уверены?',
     'You won\'t be able to revert this!' => 'Действие является не обратимым!',

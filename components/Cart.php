@@ -12,20 +12,18 @@ use yii\helpers\VarDumper;
 
 /**
  * Class Cart
+ *
  * @package modules\catalog\components
+ *
  * @property CatalogOrder $orders
  * @property string $status
+ * @property CatalogOrder $order
  */
 class Cart extends Component
 {
     use ModuleTrait;
 
     const SESSION_KEY = 'order_id';
-
-    /**
-     * @var \modules\catalog\Module
-     */
-    //public $module;
 
     private $_order;
 
@@ -73,7 +71,7 @@ class Cart extends Component
     /**
      * @return mixed
      */
-    /*private function getOrderId()
+    private function getOrderId()
     {
         if (!Yii::$app->session->has(self::SESSION_KEY)) {
             if ($this->createOrder()) {
@@ -81,52 +79,6 @@ class Cart extends Component
             }
         }
         return Yii::$app->session->get(self::SESSION_KEY);
-    }*/
-    private function getOrderId()
-    {
-        if (!Yii::$app->request->cookies->has(self::SESSION_KEY)) {
-            if ($this->createOrder()) {
-                $this->setCookie(self::SESSION_KEY, $this->_order->id);
-                $this->setSession(self::SESSION_KEY, $this->_order->id);
-            }
-        } else {
-            $value = Yii::$app->request->cookies->getValue(self::SESSION_KEY);
-            $this->setSession(self::SESSION_KEY, $value);
-        }
-        return $this->getSession(self::SESSION_KEY);
-    }
-
-    /**
-     * @param $name string|integer
-     * @param $value string|integer
-     */
-    private function setCookie($name, $value)
-    {
-        Yii::$app->response->cookies->add(new \yii\web\Cookie([
-            'name' => $name,
-            'value' => $value,
-            'expire' => time() + $this->module->orderConfirmTokenExpire,
-        ]));
-    }
-
-    /**
-     * @param $key string|integer
-     * @param $value string|integer
-     */
-    private function setSession($key, $value)
-    {
-        if (!Yii::$app->session->has($key)) {
-            Yii::$app->session->set($key, $value);
-        }
-    }
-
-    /**
-     * @param $key string|integer
-     * @return mixed
-     */
-    private function getSession($key)
-    {
-        return Yii::$app->session->get($key);
     }
 
     /**

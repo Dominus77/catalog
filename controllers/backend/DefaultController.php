@@ -7,7 +7,7 @@ use yii\filters\AccessControl;
 use modules\catalog\models\CatalogCategory;
 use modules\catalog\models\CatalogProduct;
 use modules\catalog\models\CatalogProductImage;
-use modules\catalog\models\CatalogPromotion;
+use modules\catalog\models\CatalogOrder;
 use modules\catalog\Module;
 
 /**
@@ -40,11 +40,14 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index', [
+        $counts = [
             'category' => CatalogCategory::getCount(),
             'product' => CatalogProduct::getCount(),
             'image' => CatalogProductImage::getCount(),
-            'promotions' => CatalogPromotion::getCount(),
+            'order' => CatalogOrder::getCount(),
+        ];
+        return $this->render('index', [
+            'counts' => $counts,
         ]);
     }
 }

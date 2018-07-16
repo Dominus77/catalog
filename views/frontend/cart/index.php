@@ -39,13 +39,9 @@ $this->registerJs(new \yii\web\JsExpression("
                 <h3>Информация о заказе</h3>
                 <ul>
                     <li>Товаров: <?= $order->getProductsCount() ?></li>
-                    <li>Сумма: <?= ShopHelper::Currency($order->getAmount()) ?></li>
-                    <li>Скидка: -<?= Module::$discount ?>%</li>
-                    <!--<li>Доставка: 400р</li>-->
+                    <li>Сумма: <?= ShopHelper::Currency($order->amount) ?></li>
                     <li>
-                        И того: <?= ShopHelper::Currency(
-                            ShopHelper::Discount($order->getAmount(), Module::$discount)
-                        ) ?>
+                        И того: <?= ShopHelper::Currency($order->amount) ?>
                     </li>
                 </ul>
                 <a class="btn btn-sm btn-success" href="#">Оформить заказ</a>

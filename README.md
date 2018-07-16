@@ -20,12 +20,6 @@ git clone https://github.com/Dominus77/catalog.git modules/catalog
 
 [moonlandsoft/yii2-phpexcel](https://github.com/moonlandsoft/yii2-phpexcel)
 
-[2amigos/yii2-date-picker-widget](https://github.com/2amigos/yii2-date-picker-widget)
-
-[2amigos/yii2-date-time-picker-widget](https://github.com/2amigos/yii2-date-time-picker-widget)
-
-[kartik-v/yii2-widget-select2](https://github.com/kartik-v/yii2-widget-select2)
-
 ## Подключение
 
 common\config\main.php
@@ -115,7 +109,6 @@ backend
 /admin/catalog/category/index
 /admin/catalog/product/index
 /admin/catalog/product-image/index
-/admin/catalog/promotion/index
 /admin/catalog/orders/index
 
 ```

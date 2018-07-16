@@ -3,11 +3,8 @@
 use yii\helpers\Html;
 use modules\catalog\Module;
 
-/* @var $this yii\web\View */
-/* @var integer $category \modules\catalog\models\CatalogCategory */
-/* @var integer $product \modules\catalog\models\CatalogProduct */
-/* @var integer $image \modules\catalog\models\CatalogProductImage */
-/* @var integer $promotions \modules\catalog\models\CatalogPromotion */
+/** @var $this yii\web\View */
+/** @var array $counts */
 
 $this->title = Module::t('module', 'Catalog');
 $this->params['breadcrumbs'][] = $this->title;
@@ -21,10 +18,10 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <div class="box-body">
             <ul>
-                <li><?= Html::a(Module::t('module', 'Categories') . ' <span class="label label-default">' . $category . '</span>', ['category/index']) ?></li>
-                <li><?= Html::a(Module::t('module', 'Products') . ' <span class="label label-default">' . $product . '</span>', ['product/index']) ?></li>
-                <li><?= Html::a(Module::t('module', 'Images') . ' <span class="label label-default">' . $image . '</span>', ['product-image/index']) ?></li>
-                <li><?= Html::a(Module::t('module', 'Promotions') . ' <span class="label label-default">' . $promotions . '</span>', ['promotion/index']) ?></li>
+                <li><?= Html::a(Module::t('module', 'Categories') . ' <span class="label label-default">' . $counts['category'] . '</span>', ['category/index']) ?></li>
+                <li><?= Html::a(Module::t('module', 'Products') . ' <span class="label label-default">' . $counts['product'] . '</span>', ['product/index']) ?></li>
+                <li><?= Html::a(Module::t('module', 'Images') . ' <span class="label label-default">' . $counts['image'] . '</span>', ['product-image/index']) ?></li>
+                <li><?= Html::a(Module::t('module', 'Orders') . ' <span class="label label-default">' . $counts['order'] . '</span>', ['orders/index']) ?></li>
             </ul>
             <div class="box-footer"></div>
         </div>
