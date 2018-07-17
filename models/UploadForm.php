@@ -88,8 +88,9 @@ class UploadForm extends Model
 
                         chmod($this->_path . '/' . $name, 0755);
 
-                        if (file_exists($this->_path . '/' . $tmp))
-                            unlink($this->_path . '/' . $tmp);
+                        if (file_exists($this->_path . '/' . $tmp)) {
+                            FileHelper::unlink($this->_path . '/' . $tmp);
+                        }
                         $filesNames[] = $name;
                     }
                 } else {
