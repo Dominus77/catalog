@@ -32,6 +32,7 @@ use yii\helpers\VarDumper;
  *
  * @property Product[] $catalogProduct
  * @property string $statusLabelName
+ * @property Category $rootCategory
  */
 class Category extends \yii\db\ActiveRecord
 {

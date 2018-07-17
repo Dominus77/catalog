@@ -84,15 +84,14 @@ class DefaultController extends Controller
      */
     protected function findProductModel($id)
     {
-        if (($model = Product::find()
-                ->where(['id' => $id])
-                ->andWhere(['status' => Product::STATUS_PUBLISH])
-                ->one()
-            ) !== null
-        ) {
+        $model = Product::find()
+            ->where(['id' => $id])
+            ->andWhere(['status' => Product::STATUS_PUBLISH])
+            ->one();
+        /** @var $model Product */
+        if ($model !== null && $model->category->status === Category::STATUS_PUBLISH) {
             return $model;
-        } else {
-            throw new NotFoundHttpException(Module::t('module', 'The requested page does not exist.'));
         }
+        throw new NotFoundHttpException(Module::t('module', 'The requested page does not exist.'));
     }
 }
