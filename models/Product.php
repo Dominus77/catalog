@@ -450,7 +450,8 @@ class Product extends \yii\db\ActiveRecord
         // Удаляем товар из заказа
         OrderProduct::deleteAll(['product_id' => $this->id]);
         // Удаляем изображения товара
-        foreach ($this->catalogProductImages as $image) {
+        $images = $this->catalogProductImages;
+        foreach ($images as $image) {
             $image->delete();
         }
         return true;
