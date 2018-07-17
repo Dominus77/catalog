@@ -208,16 +208,16 @@ class Order extends \yii\db\ActiveRecord
     {
         return [
             self::STATUS_ORDER_DEFAULT => 'default',
-            self::STATUS_ORDER_NEW => 'success',
-            self::STATUS_ORDER_PROCESSED => 'success',
-            self::STATUS_ORDER_PROCESS_PAYMENT => 'success',
-            self::STATUS_ORDER_PAID => 'success',
-            self::STATUS_ORDER_IN_THE_DELIVERY => 'success',
+            self::STATUS_ORDER_NEW => 'warning',
+            self::STATUS_ORDER_PROCESSED => 'warning',
+            self::STATUS_ORDER_PROCESS_PAYMENT => 'warning',
+            self::STATUS_ORDER_PAID => 'primary',
+            self::STATUS_ORDER_IN_THE_DELIVERY => 'primary',
             self::STATUS_ORDER_DELIVERED => 'success',
-            self::STATUS_ORDER_READY => 'success',
-            self::STATUS_ORDER_REFUSED => 'success',
-            self::STATUS_ORDER_CANCELED => 'success',
-            self::STATUS_ORDER_RETURN => 'success',
+            self::STATUS_ORDER_READY => 'danger',
+            self::STATUS_ORDER_REFUSED => 'warning',
+            self::STATUS_ORDER_CANCELED => 'danger',
+            self::STATUS_ORDER_RETURN => 'danger',
         ];
     }
 
@@ -248,6 +248,33 @@ class Order extends \yii\db\ActiveRecord
         switch ($this->status) {
             case self::STATUS_ORDER_DEFAULT:
                 $this->status = self::STATUS_ORDER_NEW;
+                break;
+            case self::STATUS_ORDER_NEW:
+                $this->status = self::STATUS_ORDER_PROCESSED;
+                break;
+            case self::STATUS_ORDER_PROCESSED:
+                $this->status = self::STATUS_ORDER_PROCESS_PAYMENT;
+                break;
+            case self::STATUS_ORDER_PROCESS_PAYMENT:
+                $this->status = self::STATUS_ORDER_PAID;
+                break;
+            case self::STATUS_ORDER_PAID:
+                $this->status = self::STATUS_ORDER_IN_THE_DELIVERY;
+                break;
+            case self::STATUS_ORDER_IN_THE_DELIVERY:
+                $this->status = self::STATUS_ORDER_DELIVERED;
+                break;
+            case self::STATUS_ORDER_DELIVERED:
+                $this->status = self::STATUS_ORDER_READY;
+                break;
+            case self::STATUS_ORDER_READY:
+                $this->status = self::STATUS_ORDER_REFUSED;
+                break;
+            case self::STATUS_ORDER_REFUSED:
+                $this->status = self::STATUS_ORDER_CANCELED;
+                break;
+            case self::STATUS_ORDER_CANCELED:
+                $this->status = self::STATUS_ORDER_RETURN;
                 break;
             default:
                 $this->status = self::STATUS_ORDER_DEFAULT;

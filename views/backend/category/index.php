@@ -53,6 +53,7 @@ $this->params['breadcrumbs'][] = Module::t('module', 'Categories');
                     'class' => 'table table-bordered table-hover',
                 ],
                 'rowOptions' => function ($data) {
+                    /** @var $data \modules\catalog\models\Category */
                     if ($data->isDraft()) {
                         return ['class' => 'warning'];
                     } else if ($data->isDeleted()) {
@@ -63,6 +64,13 @@ $this->params['breadcrumbs'][] = Module::t('module', 'Categories');
                 'columns' => [
                     [
                         'class' => 'yii\grid\SerialColumn',
+                        'contentOptions' => [
+                            'style' => 'width:50px',
+                        ],
+                    ],
+                    [
+                        'attribute' => 'id',
+                        'filter' => false,
                         'contentOptions' => [
                             'style' => 'width:50px',
                         ],
@@ -102,7 +110,6 @@ $this->params['breadcrumbs'][] = Module::t('module', 'Categories');
                         'value' => function ($data) {
                             return Html::a($data->statusLabelName, ['set-status', 'id' => $data->id], [
                                 'id' => $data->id,
-                                'class' => 'link-status',
                                 'title' => Module::t('module', 'Click to change the status'),
                                 'data' => [
                                     'toggle' => 'tooltip',
@@ -115,14 +122,6 @@ $this->params['breadcrumbs'][] = Module::t('module', 'Categories');
                         ],
                         'contentOptions' => [
                             'class' => 'col-md-1 title-column link-decoration-none',
-                        ],
-                    ],
-                    [
-                        'attribute' => 'id',
-                        'filter' => false,
-                        'contentOptions' => [
-                            'style' => 'width:50px',
-                            //'class' => 'col-md-1',
                         ],
                     ],
                     [
