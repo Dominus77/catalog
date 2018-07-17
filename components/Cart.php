@@ -4,8 +4,8 @@ namespace modules\catalog\components;
 
 use Yii;
 use yii\base\Component;
-use modules\catalog\models\CatalogOrder;
-use modules\catalog\models\CatalogOrderProduct;
+use modules\catalog\models\Order;
+use modules\catalog\models\OrderProduct;
 use modules\catalog\traits\ModuleTrait;
 use modules\catalog\Module;
 use yii\helpers\VarDumper;
@@ -15,9 +15,9 @@ use yii\helpers\VarDumper;
  *
  * @package modules\catalog\components
  *
- * @property CatalogOrder $orders
+ * @property Order $orders
  * @property string $status
- * @property CatalogOrder $order
+ * @property Order $order
  */
 class Cart extends Component
 {
@@ -34,9 +34,9 @@ class Cart extends Component
      */
     public function add($productId, $count)
     {
-        $link = CatalogOrderProduct::findOne(['product_id' => $productId, 'order_id' => $this->order->id]);
+        $link = OrderProduct::findOne(['product_id' => $productId, 'order_id' => $this->order->id]);
         if (!$link) {
-            $link = new CatalogOrderProduct();
+            $link = new OrderProduct();
         }
         $link->product_id = $productId;
         $link->order_id = $this->order->id;
@@ -49,7 +49,7 @@ class Cart extends Component
      */
     public function createOrder()
     {
-        $order = new CatalogOrder();
+        $order = new Order();
         if ($order->save()) {
             $this->_order = $order;
             return true;
@@ -58,12 +58,12 @@ class Cart extends Component
     }
 
     /**
-     * @return CatalogOrder|null
+     * @return Order|null
      */
     public function getOrder()
     {
         if ($this->_order == null) {
-            $this->_order = CatalogOrder::findOne(['id' => $this->getOrderId()]);
+            $this->_order = Order::findOne(['id' => $this->getOrderId()]);
         }
         return $this->_order;
     }
@@ -89,7 +89,7 @@ class Cart extends Component
      */
     public function deleteOrderProduct($productId)
     {
-        $link = CatalogOrderProduct::findOne(['product_id' => $productId, 'order_id' => $this->getOrderId()]);
+        $link = OrderProduct::findOne(['product_id' => $productId, 'order_id' => $this->getOrderId()]);
         if (!$link) {
             return false;
         }
@@ -103,7 +103,7 @@ class Cart extends Component
      */
     public function setCount($productId, $count)
     {
-        $link = CatalogOrderProduct::findOne(['product_id' => $productId, 'order_id' => $this->getOrderId()]);
+        $link = OrderProduct::findOne(['product_id' => $productId, 'order_id' => $this->getOrderId()]);
         if (!$link) {
             return false;
         }
@@ -117,7 +117,7 @@ class Cart extends Component
      */
     public function getCount($productId)
     {
-        $link = CatalogOrderProduct::findOne(['product_id' => $productId, 'order_id' => $this->getOrderId()]);
+        $link = OrderProduct::findOne(['product_id' => $productId, 'order_id' => $this->getOrderId()]);
         if (!$link) {
             return false;
         }

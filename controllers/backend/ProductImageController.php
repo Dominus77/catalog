@@ -6,8 +6,8 @@ use Yii;
 use yii\helpers\Url;
 use yii\web\UploadedFile;
 use modules\catalog\models\UploadForm;
-use modules\catalog\models\CatalogProductImage;
-use modules\catalog\models\search\CatalogProductImageSearch;
+use modules\catalog\models\ProductImage;
+use modules\catalog\models\search\ProductImageSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
@@ -51,7 +51,7 @@ class ProductImageController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new CatalogProductImageSearch();
+        $searchModel = new ProductImageSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -79,8 +79,8 @@ class ProductImageController extends Controller
      */
     public function actionCreate()
     {
-        $model = new CatalogProductImage([
-            'scenario' => CatalogProductImage::SCENARIO_CREATE,
+        $model = new ProductImage([
+            'scenario' => ProductImage::SCENARIO_CREATE,
         ]);
         $uploadModel = new UploadForm();
         $error = [];
@@ -93,8 +93,8 @@ class ProductImageController extends Controller
             ]);
             if ($fileNames = $upload->upload()) {
                 foreach ($fileNames as $name) {
-                    $model = new CatalogProductImage([
-                        'scenario' => CatalogProductImage::SCENARIO_CREATE,
+                    $model = new ProductImage([
+                        'scenario' => ProductImage::SCENARIO_CREATE,
                     ]);
                     if ($model->load($post)) {
                         $model->image = $name;
@@ -171,7 +171,7 @@ class ProductImageController extends Controller
 
     /**
      * @param $id integer
-     * @return CatalogProductImage
+     * @return ProductImage
      * @throws NotFoundHttpException
      */
     protected function processChangeStatus($id)
@@ -199,12 +199,12 @@ class ProductImageController extends Controller
      * Finds the CatalogProductImage model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return CatalogProductImage the loaded model
+     * @return ProductImage the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = CatalogProductImage::findOne($id)) !== null) {
+        if (($model = ProductImage::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException(Module::t('module', 'The requested page does not exist.'));

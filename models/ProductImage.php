@@ -8,7 +8,6 @@ use yii\helpers\ArrayHelper;
 use yii\behaviors\TimestampBehavior;
 use yii2tech\ar\position\PositionBehavior;
 use modules\catalog\Module;
-use yii\helpers\VarDumper;
 
 /**
  * This is the model class for table "{{%catalog_product_image}}".
@@ -21,10 +20,10 @@ use yii\helpers\VarDumper;
  * @property integer $updated_at
  * @property integer $status
  *
- * @property CatalogProduct $product
+ * @property Product $product
  * @property string $statusLabelName
  */
-class CatalogProductImage extends \yii\db\ActiveRecord
+class ProductImage extends \yii\db\ActiveRecord
 {
     const STATUS_DRAFT = 0;
     const STATUS_PUBLISH = 1;
@@ -68,7 +67,7 @@ class CatalogProductImage extends \yii\db\ActiveRecord
             [['product_id'], 'required'],
             [['product_id', 'position', 'created_at', 'updated_at', 'status'], 'integer'],
             [['image'], 'string', 'max' => 255],
-            [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => CatalogProduct::class, 'targetAttribute' => ['product_id' => 'id']],
+            [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Product::class, 'targetAttribute' => ['product_id' => 'id']],
         ];
     }
 
@@ -104,7 +103,7 @@ class CatalogProductImage extends \yii\db\ActiveRecord
      */
     public function getProduct()
     {
-        return $this->hasOne(CatalogProduct::class, ['id' => 'product_id']);
+        return $this->hasOne(Product::class, ['id' => 'product_id']);
     }
 
     /**
@@ -169,7 +168,7 @@ class CatalogProductImage extends \yii\db\ActiveRecord
      */
     public function getProductsArray()
     {
-        $model = new CatalogProduct();
+        $model = new Product();
         return $model->getSelectArray();
     }
 
@@ -206,7 +205,7 @@ class CatalogProductImage extends \yii\db\ActiveRecord
      */
     public function getImagesAll()
     {
-        $model = new CatalogProductImage();
+        $model = new ProductImage();
         $query = $model->find()
             ->orderBy(['product_id' => SORT_ASC, 'position' => SORT_ASC])
             ->all();

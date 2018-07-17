@@ -4,8 +4,8 @@ namespace modules\catalog\controllers\frontend;
 
 use Yii;
 use yii\web\Controller;
-use modules\catalog\models\CatalogCategory;
-use modules\catalog\models\CatalogProduct;
+use modules\catalog\models\Category;
+use modules\catalog\models\Product;
 use modules\catalog\models\form\BuyProductForm;
 use yii\web\NotFoundHttpException;
 use modules\catalog\Module;
@@ -22,7 +22,7 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
-        $model = new CatalogCategory();
+        $model = new Category();
         return $this->render('index', [
             'model' => $model,
         ]);
@@ -61,14 +61,14 @@ class DefaultController extends Controller
 
     /**
      * @param $id
-     * @return array|CatalogCategory|null
+     * @return array|Category|null
      * @throws NotFoundHttpException
      */
     protected function findCategoryModel($id)
     {
-        if (($model = CatalogCategory::find()
+        if (($model = Category::find()
                 ->where(['id' => $id])
-                ->andWhere(['status' => CatalogCategory::STATUS_PUBLISH])
+                ->andWhere(['status' => Category::STATUS_PUBLISH])
                 ->one()) !== null
         ) {
             return $model;
@@ -84,9 +84,9 @@ class DefaultController extends Controller
      */
     protected function findProductModel($id)
     {
-        if (($model = CatalogProduct::find()
+        if (($model = Product::find()
                 ->where(['id' => $id])
-                ->andWhere(['status' => CatalogProduct::STATUS_PUBLISH])
+                ->andWhere(['status' => Product::STATUS_PUBLISH])
                 ->one()
             ) !== null
         ) {

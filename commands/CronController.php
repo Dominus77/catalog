@@ -5,7 +5,7 @@ namespace modules\catalog\commands;
 use Yii;
 use yii\console\Controller;
 use console\components\helpers\Console;
-use modules\catalog\models\CatalogOrder;
+use modules\catalog\models\Order;
 
 /**
  * Class CronController
@@ -25,8 +25,8 @@ class CronController extends Controller
      */
     public function actionRemoveOrderOverdue()
     {
-        foreach (CatalogOrder::find()->overdue($this->module->orderConfirmTokenExpire)->each() as $order) {
-            /** @var CatalogOrder $order */
+        foreach (Order::find()->overdue($this->module->orderConfirmTokenExpire)->each() as $order) {
+            /** @var Order $order */
             $this->stdout('ID: ' . $order->id);
             $order->scenario = $order::SCENARIO_ADMIN_CONSOLE;
             if ($order->delete()) {

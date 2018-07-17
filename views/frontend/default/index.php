@@ -5,7 +5,7 @@ use modules\catalog\widgets\tree_menu\TreeMenu;
 use modules\catalog\Module;
 
 /* @var $this yii\web\View */
-/* @var $model modules\catalog\models\CatalogCategory */
+/* @var $model modules\catalog\models\Category */
 
 $this->title = $model->rootCategory->name ? $model->rootCategory->name : Module::t('module', 'Catalog');
 $this->params['breadcrumbs'][] = $this->title;

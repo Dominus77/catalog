@@ -5,12 +5,13 @@ namespace modules\catalog\models\search;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use modules\catalog\models\CatalogProductImage;
+use modules\catalog\models\Category;
 
 /**
- * CatalogProductImageSearch represents the model behind the search form about `modules\catalog\models\CatalogProductImage`.
+ * Class CatalogCategorySearch
+ * @package modules\catalog\models\search
  */
-class CatalogProductImageSearch extends CatalogProductImage
+class CategorySearch extends Category
 {
     /**
      * @inheritdoc
@@ -18,8 +19,8 @@ class CatalogProductImageSearch extends CatalogProductImage
     public function rules()
     {
         return [
-            [['id', 'product_id', 'position', 'created_at', 'updated_at', 'status'], 'integer'],
-            [['image'], 'safe'],
+            [['id', 'lft', 'rgt', 'depth', 'created_at', 'updated_at', 'status'], 'integer'],
+            [['name', 'slug', 'description', 'meta_description', 'meta_keywords'], 'safe'],
         ];
     }
 
@@ -41,8 +42,7 @@ class CatalogProductImageSearch extends CatalogProductImage
      */
     public function search($params)
     {
-        $query = CatalogProductImage::find();
-        $query->orderBy(['product_id' => SORT_DESC, 'position' => SORT_ASC]);
+        $query = Category::find();
 
         // add conditions that should always apply here
 
@@ -61,14 +61,19 @@ class CatalogProductImageSearch extends CatalogProductImage
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'product_id' => $this->product_id,
-            'position' => $this->position,
+            'lft' => $this->lft,
+            'rgt' => $this->rgt,
+            'depth' => $this->depth,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'status' => $this->status,
         ]);
 
-        $query->andFilterWhere(['like', 'image', $this->image]);
+        $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'slug', $this->slug])
+            ->andFilterWhere(['like', 'description', $this->description])
+            ->andFilterWhere(['like', 'meta_description', $this->meta_description])
+            ->andFilterWhere(['like', 'meta_keywords', $this->meta_keywords]);
 
         return $dataProvider;
     }

@@ -30,10 +30,10 @@ use yii\helpers\VarDumper;
  * @property string $meta_description
  * @property string $meta_keywords
  *
- * @property CatalogProduct[] $catalogProduct
+ * @property Product[] $catalogProduct
  * @property string $statusLabelName
  */
-class CatalogCategory extends \yii\db\ActiveRecord
+class Category extends \yii\db\ActiveRecord
 {
     const STATUS_DRAFT = 0;
     const STATUS_PUBLISH = 1;
@@ -148,7 +148,7 @@ class CatalogCategory extends \yii\db\ActiveRecord
      */
     public function getCatalogProducts()
     {
-        return $this->hasMany(CatalogProduct::class, ['category_id' => 'id']);
+        return $this->hasMany(Product::class, ['category_id' => 'id']);
     }
 
     /**
@@ -322,7 +322,7 @@ class CatalogCategory extends \yii\db\ActiveRecord
     {
         $parent = $this->getParentCategory();
 
-        $parentModel = CatalogCategory::findOne($parent->id);
+        $parentModel = Category::findOne($parent->id);
         $query = $parentModel->children(1)->all();
 
         $child = [];
@@ -339,11 +339,11 @@ class CatalogCategory extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return CatalogCategory[]|array|bool
+     * @return Category[]|array|bool
      */
     public function getCategoriesAll()
     {
-        $model = new CatalogCategory();
+        $model = new Category();
         $query = $model->find()
             ->orderBy(['lft' => SORT_ASC])
             ->all();
@@ -351,11 +351,11 @@ class CatalogCategory extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return CatalogCategory[]|array|bool
+     * @return Category[]|array|bool
      */
     public function getCategories()
     {
-        $model = new CatalogCategory();
+        $model = new Category();
         $query = $model->find()
             ->where(['status' => self::STATUS_PUBLISH])
             ->andWhere('depth > 0')
@@ -366,11 +366,11 @@ class CatalogCategory extends \yii\db\ActiveRecord
 
     /**
      * Get Root Category
-     * @return array|CatalogCategory|null
+     * @return array|Category|null
      */
     public function getRootCategory()
     {
-        $model = new CatalogCategory();
+        $model = new Category();
         $root = $model->find()
             ->where(['status' => self::STATUS_PUBLISH])
             ->andWhere(['depth' => 0])
@@ -489,9 +489,9 @@ class CatalogCategory extends \yii\db\ActiveRecord
         foreach ($categoriesChildren as $children) {
             $category_id[] = $children->id;
         }
-        $products = CatalogProduct::find()->where([
+        $products = Product::find()->where([
             'category_id' => $category_id,
-            'status' => CatalogProduct::STATUS_PUBLISH
+            'status' => Product::STATUS_PUBLISH
         ]);
         $dataProvider = new ActiveDataProvider([
             'query' => $products,
@@ -514,7 +514,7 @@ class CatalogCategory extends \yii\db\ActiveRecord
      */
     private function childStatus()
     {
-        $models = CatalogCategory::find()
+        $models = Category::find()
             ->where('lft > ' . $this->lft . ' and rgt < ' . $this->rgt)
             ->all();
         if (is_array($models)) {

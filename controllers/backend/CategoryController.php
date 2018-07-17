@@ -5,8 +5,8 @@ namespace modules\catalog\controllers\backend;
 use Yii;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use modules\catalog\models\CatalogCategory;
-use modules\catalog\models\search\CatalogCategorySearch;
+use modules\catalog\models\Category;
+use modules\catalog\models\search\CategorySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
@@ -50,7 +50,7 @@ class CategoryController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new CatalogCategorySearch();
+        $searchModel = new CategorySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->query->orderBy(['lft' => SORT_ASC]);
 
@@ -88,7 +88,7 @@ class CategoryController extends Controller
      */
     public function actionCreate()
     {
-        $model = new CatalogCategory();
+        $model = new Category();
         $model->scenario = $model::SCENARIO_CREATE;
 
         if ($model->load(Yii::$app->request->post())) {
@@ -142,7 +142,7 @@ class CategoryController extends Controller
         $model = $this->findModel($id);
         $model->scenario = $model::SCENARIO_CREATE;
 
-        $clone = new CatalogCategory();
+        $clone = new Category();
         $clone->scenario = $model::SCENARIO_CREATE;
 
         if ($clone->load(Yii::$app->request->post())) {
@@ -184,7 +184,7 @@ class CategoryController extends Controller
 
     /**
      * @param $id integer
-     * @return CatalogCategory
+     * @return Category
      * @throws NotFoundHttpException
      */
     protected function processChangeStatus($id)
@@ -293,12 +293,12 @@ class CategoryController extends Controller
      * Finds the CatalogCategory model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return CatalogCategory the loaded model
+     * @return Category the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = CatalogCategory::findOne($id)) !== null) {
+        if (($model = Category::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException(Module::t('module', 'The requested page does not exist.'));

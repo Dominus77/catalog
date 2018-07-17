@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use modules\catalog\Module;
 
 /* @var $this yii\web\View */
-/* @var $model modules\catalog\models\CatalogCategory */
+/* @var $model modules\catalog\models\Category */
 
 $this->title = Module::t('module', 'Catalog');
 $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['default/index']];

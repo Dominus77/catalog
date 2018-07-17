@@ -3,8 +3,8 @@
 namespace modules\catalog\controllers\backend;
 
 use Yii;
-use modules\catalog\models\CatalogOrder;
-use modules\catalog\models\search\CatalogOrderSearch;
+use modules\catalog\models\Order;
+use modules\catalog\models\search\OrderSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -36,7 +36,7 @@ class OrdersController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new CatalogOrderSearch();
+        $searchModel = new OrderSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -65,7 +65,7 @@ class OrdersController extends Controller
      */
     public function actionCreate()
     {
-        $model = new CatalogOrder();
+        $model = new Order();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -116,12 +116,12 @@ class OrdersController extends Controller
      * Finds the CatalogOrder model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return CatalogOrder the loaded model
+     * @return Order the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = CatalogOrder::findOne($id)) !== null) {
+        if (($model = Order::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

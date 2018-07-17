@@ -6,7 +6,7 @@ use modules\catalog\Module;
 /* @var $this yii\web\View */
 /* @var $crop modules\catalog\models\CropImageForm */
 /* @var $files modules\catalog\models\UploadForm */
-/* @var $model modules\catalog\models\CatalogProductImage */
+/* @var $model modules\catalog\models\ProductImage */
 
 $this->title = Module::t('module', 'Catalog');
 $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['default/index']];

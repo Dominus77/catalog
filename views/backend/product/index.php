@@ -10,7 +10,7 @@ use modules\catalog\helpers\ShopHelper;
 use modules\catalog\Module;
 
 /* @var $this yii\web\View */
-/* @var $searchModel modules\catalog\models\search\CatalogProductSearch */
+/* @var $searchModel modules\catalog\models\search\ProductSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 BackendAsset::register($this);

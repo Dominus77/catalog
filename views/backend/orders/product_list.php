@@ -2,7 +2,7 @@
 
 use modules\catalog\Module;
 
-/* @var $item \modules\catalog\models\CatalogOrderProduct */
+/* @var $item \modules\catalog\models\OrderProduct */
 
 ?>
 <div class="row">

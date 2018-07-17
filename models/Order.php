@@ -6,7 +6,6 @@ use Yii;
 use yii\behaviors\TimestampBehavior;
 use modules\catalog\models\query\CatalogOrderQuery;
 use modules\catalog\Module;
-use yii\helpers\VarDumper;
 
 /**
  * This is the model class for table "{{%catalog_order}}".
@@ -21,11 +20,11 @@ use yii\helpers\VarDumper;
  * @property integer $created_at
  * @property integer $updated_at
  *
- * @property CatalogOrderProduct[] $catalogOrderProducts
+ * @property OrderProduct[] $catalogOrderProducts
  * @property float|int $amount
  * @property integer $productsCount
  */
-class CatalogOrder extends \yii\db\ActiveRecord
+class Order extends \yii\db\ActiveRecord
 {
     /**
      * Статус заказа "Без статуса"
@@ -176,7 +175,7 @@ class CatalogOrder extends \yii\db\ActiveRecord
      */
     public function getCatalogOrderProducts()
     {
-        return $this->hasMany(CatalogOrderProduct::class, ['order_id' => 'id']);
+        return $this->hasMany(OrderProduct::class, ['order_id' => 'id']);
     }
 
     /**
@@ -228,7 +227,7 @@ class CatalogOrder extends \yii\db\ActiveRecord
     {
         $products = $this->catalogOrderProducts;
         $total = 0;
-        /** @var  $product CatalogOrderProduct */
+        /** @var  $product OrderProduct */
         foreach ($products as $product) {
             /** @var integer $price */
             $total += $product->price * $product->count;

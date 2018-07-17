@@ -7,7 +7,7 @@ use modules\catalog\helpers\ShopHelper;
 use modules\catalog\Module;
 
 /* @var $this yii\web\View */
-/* @var $model modules\catalog\models\CatalogProduct */
+/* @var $model modules\catalog\models\Product */
 
 $this->title = Module::t('module', 'Catalog');
 $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['default/index']];

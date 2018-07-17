@@ -5,7 +5,7 @@ namespace modules\catalog\controllers\frontend;
 use Yii;
 use yii\web\Controller;
 use yii\data\ActiveDataProvider;
-use modules\catalog\models\CatalogOrder;
+use modules\catalog\models\Order;
 use modules\catalog\models\form\BuyProductForm;
 use yii\filters\VerbFilter;
 use modules\catalog\Module;
@@ -40,7 +40,7 @@ class CartController extends Controller
     public function actionIndex()
     {
         $id = Yii::$app->cart->order->id;
-        $order = CatalogOrder::find()->where(['id' => $id])->one();
+        $order = Order::find()->where(['id' => $id])->one();
         $dataProvider = new ActiveDataProvider([
             'query' => $order->getCatalogOrderProducts(),
             'pagination' => [

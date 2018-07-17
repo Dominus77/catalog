@@ -4,10 +4,10 @@ namespace modules\catalog\controllers\backend;
 
 use yii\web\Controller;
 use yii\filters\AccessControl;
-use modules\catalog\models\CatalogCategory;
-use modules\catalog\models\CatalogProduct;
-use modules\catalog\models\CatalogProductImage;
-use modules\catalog\models\CatalogOrder;
+use modules\catalog\models\Category;
+use modules\catalog\models\Product;
+use modules\catalog\models\ProductImage;
+use modules\catalog\models\Order;
 use modules\catalog\Module;
 
 /**
@@ -41,10 +41,10 @@ class DefaultController extends Controller
     public function actionIndex()
     {
         $counts = [
-            'category' => CatalogCategory::getCount(),
-            'product' => CatalogProduct::getCount(),
-            'image' => CatalogProductImage::getCount(),
-            'order' => CatalogOrder::getCount(),
+            'category' => Category::getCount(),
+            'product' => Product::getCount(),
+            'image' => ProductImage::getCount(),
+            'order' => Order::getCount(),
         ];
         return $this->render('index', [
             'counts' => $counts,

@@ -5,9 +5,9 @@ use modules\catalog\helpers\ShopHelper;
 use modules\catalog\Module;
 
 /* @var $this yii\web\View */
-/* @var $dataProvider modules\catalog\models\CatalogCategory */
+/* @var $dataProvider modules\catalog\models\Category */
 /* @var $formProduct modules\catalog\models\form\BuyProductForm */
-/* @var $order modules\catalog\models\CatalogOrder */
+/* @var $order modules\catalog\models\Order */
 
 $this->title = Module::t('module', 'Cart');
 $this->params['breadcrumbs'][] = ['label' => Module::t('module', 'Catalog'), 'url' => ['default/index']];

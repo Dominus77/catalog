@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use modules\catalog\Module;
 
-/* @var $model modules\catalog\models\CatalogProduct */
+/* @var $model modules\catalog\models\Product */
 
 ?>
 <h4><?= Module::t('module', 'Details') ?></h4>

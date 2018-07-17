@@ -30,11 +30,11 @@ use modules\catalog\Module;
  * @property string $meta_description
  * @property string $meta_keywords
  *
- * @property CatalogCategory $category
- * @property CatalogProductImage[] $catalogProductImages
+ * @property Category $category
+ * @property ProductImage[] $catalogProductImages
  * @property string $statusLabelName
  */
-class CatalogProduct extends \yii\db\ActiveRecord
+class Product extends \yii\db\ActiveRecord
 {
     const STATUS_DRAFT = 0;
     const STATUS_PUBLISH = 1;
@@ -87,7 +87,7 @@ class CatalogProduct extends \yii\db\ActiveRecord
             [['meta_description'], 'string', 'max' => 200],
             [['meta_keywords'], 'string', 'max' => 250],
             [['slug', 'code'], 'unique'],
-            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => CatalogCategory::class, 'targetAttribute' => ['category_id' => 'id']],
+            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],
         ];
     }
 
@@ -119,7 +119,7 @@ class CatalogProduct extends \yii\db\ActiveRecord
      */
     public function getCategory()
     {
-        return $this->hasOne(CatalogCategory::class, ['id' => 'category_id']);
+        return $this->hasOne(Category::class, ['id' => 'category_id']);
     }
 
     /**
@@ -127,7 +127,7 @@ class CatalogProduct extends \yii\db\ActiveRecord
      */
     public function getCatalogProductImages()
     {
-        return $this->hasMany(CatalogProductImage::class, ['product_id' => 'id']);
+        return $this->hasMany(ProductImage::class, ['product_id' => 'id']);
     }
 
     /**
@@ -136,7 +136,7 @@ class CatalogProduct extends \yii\db\ActiveRecord
     public function getProductImages()
     {
         return $this->getCatalogProductImages()
-            ->where(['status' => CatalogProductImage::STATUS_PUBLISH])
+            ->where(['status' => ProductImage::STATUS_PUBLISH])
             ->orderBy(['position' => SORT_ASC]);
     }
 
@@ -146,7 +146,7 @@ class CatalogProduct extends \yii\db\ActiveRecord
      */
     public function getImages($id = null)
     {
-        $model = new CatalogProductImage();
+        $model = new ProductImage();
         $id = $id ? $id : $this->id;
         $dir = $model->getDir($id);
         if ($images = $this->getProductImages()->all()) {
@@ -212,7 +212,7 @@ class CatalogProduct extends \yii\db\ActiveRecord
      */
     public function getProductsAll()
     {
-        $model = new CatalogProduct();
+        $model = new Product();
         $query = $model->find()
             ->orderBy(['position' => SORT_ASC])
             ->all();
@@ -225,7 +225,7 @@ class CatalogProduct extends \yii\db\ActiveRecord
     public function getPublishedProducts()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => CatalogProduct::find()->where(['status' => self::STATUS_PUBLISH]),
+            'query' => Product::find()->where(['status' => self::STATUS_PUBLISH]),
             'pagination' => [
                 'pageSize' => 20,
             ],
@@ -252,7 +252,7 @@ class CatalogProduct extends \yii\db\ActiveRecord
      */
     public function getCategoriesTreeArray()
     {
-        $model = new CatalogCategory();
+        $model = new Category();
         return $model->getSelectArray();
     }
 
@@ -296,8 +296,8 @@ class CatalogProduct extends \yii\db\ActiveRecord
     {
         if ($data) {
             foreach ($data as $item) {
-                if (!CatalogProduct::find()->where(['code' => $item['code']])->one()) {
-                    $model = new CatalogProduct();
+                if (!Product::find()->where(['code' => $item['code']])->one()) {
+                    $model = new Product();
                     if ($model->load($item, '')) {
                         $model->code = (string)$item['code'];
                         if ($model->validate()) {
@@ -322,7 +322,7 @@ class CatalogProduct extends \yii\db\ActiveRecord
     {
         if ($data) {
             foreach ($data as $item) {
-                if ($model = CatalogProduct::find()->where(['code' => $item['code']])->one()) {
+                if ($model = Product::find()->where(['code' => $item['code']])->one()) {
                     if ($model->load($item, '')) {
                         $model->code = (string)$item['code'];
                         if ($model->validate()) {
@@ -347,7 +347,7 @@ class CatalogProduct extends \yii\db\ActiveRecord
     public function importItemsDelete($data = [])
     {
         if ($data) {
-            if ($products = CatalogProduct::find()->select(['code'])->all()) {
+            if ($products = Product::find()->select(['code'])->all()) {
                 if (count($products) > count($data)) {
                     $dbCode = [];
                     foreach ($products as $product) {
@@ -359,7 +359,7 @@ class CatalogProduct extends \yii\db\ActiveRecord
                     }
                     $diff = array_diff($dbCode, $fileCode);
                     foreach ($diff as $key => $value) {
-                        $product = CatalogProduct::find()->where(['code' => $value])->one();
+                        $product = Product::find()->where(['code' => $value])->one();
                         $product->delete();
                     }
                     return true;
@@ -448,7 +448,7 @@ class CatalogProduct extends \yii\db\ActiveRecord
     {
         parent::beforeDelete();
         // Удаляем товар из заказа
-        CatalogOrderProduct::deleteAll(['product_id' => $this->id]);
+        OrderProduct::deleteAll(['product_id' => $this->id]);
         // Удаляем изображения товара
         foreach ($this->catalogProductImages as $image) {
             $image->delete();

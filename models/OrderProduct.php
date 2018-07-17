@@ -6,7 +6,6 @@ use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\helpers\ArrayHelper;
 use modules\catalog\Module;
-use yii\helpers\VarDumper;
 
 /**
  * This is the model class for table "{{%catalog_order_product}}".
@@ -19,10 +18,10 @@ use yii\helpers\VarDumper;
  * @property integer $created_at
  * @property integer $updated_at
  *
- * @property CatalogOrder $orders
- * @property CatalogProduct $product
+ * @property Order $orders
+ * @property Product $product
  */
-class CatalogOrderProduct extends \yii\db\ActiveRecord
+class OrderProduct extends \yii\db\ActiveRecord
 {
     const SCENARIO_ADMIN_ADD_PRODUCT = 'adminAddProduct';
 
@@ -56,8 +55,8 @@ class CatalogOrderProduct extends \yii\db\ActiveRecord
             [['order_id', 'count'], 'required', 'on' => self::SCENARIO_ADMIN_ADD_PRODUCT],
             [['product_id', 'order_id', 'count', 'created_at', 'updated_at'], 'integer'],
             [['price'], 'number', 'numberPattern' => '/^\s*[-+]?[0-9]*[.,]?[0-9]+([eE][-+]?[0-9]+)?\s*$/'],
-            [['order_id'], 'exist', 'skipOnError' => true, 'targetClass' => CatalogOrder::class, 'targetAttribute' => ['order_id' => 'id'], 'on' => self::SCENARIO_ADMIN_ADD_PRODUCT],
-            [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => CatalogProduct::class, 'targetAttribute' => ['product_id' => 'id']],
+            [['order_id'], 'exist', 'skipOnError' => true, 'targetClass' => Order::class, 'targetAttribute' => ['order_id' => 'id'], 'on' => self::SCENARIO_ADMIN_ADD_PRODUCT],
+            [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Product::class, 'targetAttribute' => ['product_id' => 'id']],
         ];
     }
 
@@ -92,7 +91,7 @@ class CatalogOrderProduct extends \yii\db\ActiveRecord
      */
     public function getOrder()
     {
-        return $this->hasOne(CatalogOrder::class, ['id' => 'order_id']);
+        return $this->hasOne(Order::class, ['id' => 'order_id']);
     }
 
     /**
@@ -100,7 +99,7 @@ class CatalogOrderProduct extends \yii\db\ActiveRecord
      */
     public function getProduct()
     {
-        return $this->hasOne(CatalogProduct::class, ['id' => 'product_id']);
+        return $this->hasOne(Product::class, ['id' => 'product_id']);
     }
 
     /**
@@ -108,13 +107,13 @@ class CatalogOrderProduct extends \yii\db\ActiveRecord
      */
     public function getOrdersArray()
     {
-        $orders = CatalogOrder::find()->all();
+        $orders = Order::find()->all();
         return ArrayHelper::map($orders, 'id', 'id');
     }
 
     public function getProductsArray()
     {
-        $products = CatalogProduct::find()->all();
+        $products = Product::find()->all();
         return ArrayHelper::map($products, 'id', 'code');
     }
 

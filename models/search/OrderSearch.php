@@ -5,12 +5,13 @@ namespace modules\catalog\models\search;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use modules\catalog\models\CatalogOrderProduct;
+use modules\catalog\models\Order;
 
 /**
- * CatalogOrderProductSearch represents the model behind the search form about `modules\catalog\models\CatalogOrderProduct`.
+ * Class OrderSearch
+ * @package modules\catalog\models\search
  */
-class CatalogOrderProductSearch extends CatalogOrderProduct
+class OrderSearch extends Order
 {
     /**
      * @inheritdoc
@@ -18,8 +19,8 @@ class CatalogOrderProductSearch extends CatalogOrderProduct
     public function rules()
     {
         return [
-            [['id', 'product_id', 'order_id', 'count', 'created_at', 'updated_at'], 'integer'],
-            [['price'], 'number'],
+            [['id', 'address', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['first_name', 'last_name', 'email', 'phone'], 'safe'],
         ];
     }
 
@@ -41,7 +42,7 @@ class CatalogOrderProductSearch extends CatalogOrderProduct
      */
     public function search($params)
     {
-        $query = CatalogOrderProduct::find();
+        $query = Order::find();
 
         // add conditions that should always apply here
 
@@ -60,13 +61,16 @@ class CatalogOrderProductSearch extends CatalogOrderProduct
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'product_id' => $this->product_id,
-            'order_id' => $this->order_id,
-            'count' => $this->count,
-            'price' => $this->price,
+            'address' => $this->address,
+            'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
+
+        $query->andFilterWhere(['like', 'first_name', $this->first_name])
+            ->andFilterWhere(['like', 'last_name', $this->last_name])
+            ->andFilterWhere(['like', 'email', $this->email])
+            ->andFilterWhere(['like', 'phone', $this->phone]);
 
         return $dataProvider;
     }

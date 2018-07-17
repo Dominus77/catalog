@@ -7,7 +7,7 @@ use modules\catalog\assets\ProductAsset;
 use modules\catalog\Module;
 
 /* @var $this yii\web\View */
-/* @var $model modules\catalog\models\CatalogCategory */
+/* @var $model modules\catalog\models\Category */
 /* @var $formProduct modules\catalog\models\form\BuyProductForm */
 
 $this->title = $model->name;

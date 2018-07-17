@@ -7,7 +7,7 @@ use modules\catalog\assets\BackendAsset;
 use modules\catalog\Module;
 
 /* @var $this yii\web\View */
-/* @var $searchModel modules\catalog\models\search\CatalogCategorySearch */
+/* @var $searchModel modules\catalog\models\search\CategorySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 BackendAsset::register($this);
@@ -79,7 +79,7 @@ $this->params['breadcrumbs'][] = Module::t('module', 'Categories');
                         'format' => 'raw',
                         'value' => function ($data) {
                             $depth = $data->depth * 10;
-                            /** @var  $data \modules\catalog\models\CatalogCategory */
+                            /** @var  $data \modules\catalog\models\Category */
                             $name = $data->name . ' ' . $data->getProductsCount('default');
                             if ($data->depth == 0)
                                 $name = "<i class='glyphicon glyphicon-home'></i> " . $name;

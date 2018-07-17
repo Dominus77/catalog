@@ -3,8 +3,8 @@
 namespace modules\catalog\controllers\backend;
 
 use Yii;
-use modules\catalog\models\CatalogOrderProduct;
-use modules\catalog\models\search\CatalogOrderProductSearch;
+use modules\catalog\models\OrderProduct;
+use modules\catalog\models\search\OrderProductSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -36,7 +36,7 @@ class OrdersProductController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new CatalogOrderProductSearch();
+        $searchModel = new OrderProductSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -65,7 +65,7 @@ class OrdersProductController extends Controller
      */
     public function actionCreate()
     {
-        $model = new CatalogOrderProduct();
+        $model = new OrderProduct();
         $model->scenario = $model::SCENARIO_ADMIN_ADD_PRODUCT;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -117,12 +117,12 @@ class OrdersProductController extends Controller
      * Finds the CatalogOrderProduct model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return CatalogOrderProduct the loaded model
+     * @return OrderProduct the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = CatalogOrderProduct::findOne($id)) !== null) {
+        if (($model = OrderProduct::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

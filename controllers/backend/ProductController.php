@@ -4,8 +4,8 @@ namespace modules\catalog\controllers\backend;
 
 use Yii;
 use yii\helpers\Url;
-use modules\catalog\models\CatalogProduct;
-use modules\catalog\models\search\CatalogProductSearch;
+use modules\catalog\models\Product;
+use modules\catalog\models\search\ProductSearch;
 use moonland\phpexcel\Excel;
 use yii\web\UploadedFile;
 use modules\catalog\models\Import;
@@ -52,7 +52,7 @@ class ProductController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new CatalogProductSearch();
+        $searchModel = new ProductSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -95,7 +95,7 @@ class ProductController extends Controller
      */
     public function actionCreate()
     {
-        $model = new CatalogProduct();
+        $model = new Product();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -151,7 +151,7 @@ class ProductController extends Controller
 
     /**
      * @param $id integer
-     * @return CatalogProduct
+     * @return Product
      * @throws NotFoundHttpException
      */
     protected function processChangeStatus($id)
@@ -180,12 +180,12 @@ class ProductController extends Controller
      * Finds the CatalogProduct model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return CatalogProduct the loaded model
+     * @return Product the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = CatalogProduct::findOne($id)) !== null) {
+        if (($model = Product::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException(Module::t('module', 'The requested page does not exist.'));
@@ -198,7 +198,7 @@ class ProductController extends Controller
      */
     public function actionExport()
     {
-        $searchModel = new CatalogProductSearch();
+        $searchModel = new ProductSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams['params']);
         Excel::export([
             'models' => $dataProvider->models,
@@ -265,7 +265,7 @@ class ProductController extends Controller
                 'setIndexSheetByName' => true,
                 //'getOnlySheet' => 'sheet1',
             ];
-            $importModel = new CatalogProduct();
+            $importModel = new Product();
             if ($importData = $importModel->processPreparationImportData(Excel::import($file->tempName, $config))) {
 
                 // Если задана опция добавления

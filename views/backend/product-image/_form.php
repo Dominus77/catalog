@@ -6,7 +6,7 @@ use modules\catalog\Module;
 
 /* @var $this yii\web\View */
 /* @var $files modules\catalog\models\UploadForm */
-/* @var $model modules\catalog\models\CatalogProductImage */
+/* @var $model modules\catalog\models\ProductImage */
 /* @var $form yii\widgets\ActiveForm */
 
 ?>

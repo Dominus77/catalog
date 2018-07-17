@@ -9,5 +9,5 @@ use yii\test\ActiveFixture;
  */
 class Category extends ActiveFixture
 {
-    public $modelClass = 'modules\catalog\models\CatalogCategory';
+    public $modelClass = 'modules\catalog\models\Category';
 }

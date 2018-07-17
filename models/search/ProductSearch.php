@@ -5,13 +5,13 @@ namespace modules\catalog\models\search;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use modules\catalog\models\CatalogProduct;
+use modules\catalog\models\Product;
 
 /**
  * Class CatalogProductSearch
  * @package modules\catalog\models\search
  */
-class CatalogProductSearch extends CatalogProduct
+class ProductSearch extends Product
 {
     /**
      * @inheritdoc
@@ -42,7 +42,7 @@ class CatalogProductSearch extends CatalogProduct
      */
     public function search($params)
     {
-        $query = CatalogProduct::find();
+        $query = Product::find();
 
         // add conditions that should always apply here
 

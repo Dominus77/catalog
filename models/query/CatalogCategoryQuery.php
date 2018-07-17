@@ -4,7 +4,7 @@ namespace modules\catalog\models\query;
 
 use yii\db\ActiveQuery;
 use creocoder\nestedsets\NestedSetsQueryBehavior;
-use modules\catalog\models\CatalogCategory;
+use modules\catalog\models\Category;
 
 /**
  * Class CatalogCategoryQuery
@@ -28,7 +28,7 @@ class CatalogCategoryQuery extends ActiveQuery
 
     /**
      * @inheritdoc
-     * @return CatalogCategory[]|array
+     * @return Category[]|array
      */
     public function all($db = null)
     {
@@ -37,7 +37,7 @@ class CatalogCategoryQuery extends ActiveQuery
 
     /**
      * @inheritdoc
-     * @return CatalogCategory|array|null
+     * @return Category|array|null
      */
     public function one($db = null)
     {

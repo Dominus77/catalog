@@ -5,7 +5,7 @@ use yii\grid\GridView;
 use modules\catalog\Module;
 
 /* @var $this yii\web\View */
-/* @var $searchModel modules\catalog\models\search\CatalogOrderSearch */
+/* @var $searchModel modules\catalog\models\search\OrderSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Module::t('module', 'Catalog');

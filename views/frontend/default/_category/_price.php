@@ -2,7 +2,7 @@
 
 /** @var $this \yii\web\View */
 
-/** @var $model  modules\catalog\models\CatalogProduct */
+/** @var $model  modules\catalog\models\Product */
 
 use modules\catalog\helpers\ShopHelper;
 

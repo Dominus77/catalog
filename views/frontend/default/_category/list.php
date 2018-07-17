@@ -6,7 +6,7 @@ use yii\helpers\HtmlPurifier;
 use yii\widgets\ActiveForm;
 use modules\catalog\Module;
 
-/* @var $model modules\catalog\models\CatalogProduct */
+/* @var $model modules\catalog\models\Product */
 /* @var $formProduct modules\catalog\models\form\BuyProductForm */
 
 ?>

@@ -7,7 +7,7 @@ use modules\catalog\assets\BackendAsset;
 use modules\catalog\Module;
 
 /* @var $this yii\web\View */
-/* @var $searchModel modules\catalog\models\search\CatalogProductImageSearch */
+/* @var $searchModel modules\catalog\models\search\ProductImageSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 BackendAsset::register($this);
@@ -73,7 +73,7 @@ $this->params['breadcrumbs'][] = Module::t('module', 'Images');
                         'filter' => false,
                         'format' => 'raw',
                         'value' => function ($data) {
-                            /** @var $data \modules\catalog\models\CatalogProductImage */
+                            /** @var $data \modules\catalog\models\ProductImage */
                             return Html::img($data->getCellImage($data->image), [
                                 'class' => 'img-thumbnail img-responsive',
                                 'width' => Module::$thumbSize[0],

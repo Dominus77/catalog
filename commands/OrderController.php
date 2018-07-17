@@ -6,7 +6,7 @@ use yii\base\Model;
 use yii\console\Controller;
 use yii\console\Exception;
 use console\components\helpers\Console;
-use modules\catalog\models\CatalogOrder;
+use modules\catalog\models\Order;
 use modules\catalog\Module;
 
 /**
@@ -27,7 +27,7 @@ class OrderController extends Controller
      */
     private function findModel($order_id)
     {
-        if (!$model = CatalogOrder::findOne(['id' => $order_id])) {
+        if (!$model = Order::findOne(['id' => $order_id])) {
             throw new Exception(
                 Console::convertEncoding(
                     Module::t('module', 'Order "{:OrderId}" not found', [':OrderId' => $order_id])

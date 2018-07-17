@@ -6,7 +6,7 @@ use yii\bootstrap\ActiveForm;
 use modules\catalog\Module;
 
 /* @var $this yii\web\View */
-/* @var $model modules\catalog\models\CatalogCategory */
+/* @var $model modules\catalog\models\Category */
 /* @var $form yii\widgets\ActiveForm */
 
 $script = new \yii\web\JsExpression("

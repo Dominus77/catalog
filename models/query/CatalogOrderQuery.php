@@ -3,7 +3,7 @@
 namespace modules\catalog\models\query;
 
 use yii\db\ActiveQuery;
-use modules\catalog\models\CatalogOrder;
+use modules\catalog\models\Order;
 
 /**
  * Class CatalogOrderQuery
@@ -18,13 +18,13 @@ class CatalogOrderQuery extends ActiveQuery
     public function overdue($timeout)
     {
         return $this
-            ->andWhere(['status' => CatalogOrder::STATUS_ORDER_DEFAULT])
+            ->andWhere(['status' => Order::STATUS_ORDER_DEFAULT])
             ->andWhere(['<', 'updated_at', time() - $timeout]);
     }
 
     /**
      * @inheritdoc
-     * @return CatalogOrder[]|array
+     * @return Order[]|array
      */
     public function all($db = null)
     {
@@ -33,7 +33,7 @@ class CatalogOrderQuery extends ActiveQuery
 
     /**
      * @inheritdoc
-     * @return CatalogOrder|array|null
+     * @return Order|array|null
      */
     public function one($db = null)
     {

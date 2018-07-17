@@ -6,7 +6,7 @@ use yii\bootstrap\ActiveForm;
 use modules\catalog\Module;
 
 /* @var $this yii\web\View */
-/* @var $model modules\catalog\models\CatalogOrderProduct */
+/* @var $model modules\catalog\models\OrderProduct */
 /* @var $formProduct modules\catalog\models\form\BuyProductForm */
 
 ?>

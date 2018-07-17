@@ -4,7 +4,7 @@ namespace modules\catalog\tests\models;
 
 use Yii;
 use modules\catalog\tests\fixtures\Category as CategoryFixture;
-use modules\catalog\models\CatalogCategory;
+use modules\catalog\models\Category;
 use modules\catalog\Module;
 
 /**
@@ -67,7 +67,7 @@ class CatalogCategoryTest extends \Codeception\Test\Unit
      */
     public function testGetSelectArray()
     {
-        $category = new CatalogCategory();
+        $category = new Category();
         // Должны получить такой же результат как в переменной $this->result
         expect($category->getSelectArray())->equals($this->result);
 
@@ -125,7 +125,7 @@ class CatalogCategoryTest extends \Codeception\Test\Unit
             16 => '</li>' . PHP_EOL,
             17 => '</ul>' . PHP_EOL,
         ];
-        $category = new CatalogCategory();
+        $category = new Category();
         $depth = 0;
         expect($category->getRenderTree($depth))->equals($result);
     }

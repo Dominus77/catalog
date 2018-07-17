@@ -5,7 +5,7 @@ namespace modules\catalog\widgets\shop;
 use Yii;
 use yii\bootstrap\Widget;
 use yii\helpers\Html;
-use modules\catalog\models\CatalogOrder;
+use modules\catalog\models\Order;
 
 /**
  * Class CartWidget
@@ -56,14 +56,14 @@ class CartWidget extends Widget
 
     /**
      * Возвращает продукты заказа со статусом Default
-     * @return CatalogOrder|null
+     * @return Order|null
      */
     protected function getCatalogOrderDefaultProducts()
     {
         if ($id = Yii::$app->cart->order->id) {
-            return CatalogOrder::findOne([
+            return Order::findOne([
                 'id' => $id,
-                'status' => CatalogOrder::STATUS_ORDER_DEFAULT
+                'status' => Order::STATUS_ORDER_DEFAULT
             ]);
         }
         return null;

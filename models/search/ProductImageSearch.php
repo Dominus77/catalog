@@ -5,12 +5,12 @@ namespace modules\catalog\models\search;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use modules\catalog\models\CatalogOrder;
+use modules\catalog\models\ProductImage;
 
 /**
- * CatalogOrderSearch represents the model behind the search form about `modules\catalog\models\CatalogOrder`.
+ * CatalogProductImageSearch represents the model behind the search form about `modules\catalog\models\CatalogProductImage`.
  */
-class CatalogOrderSearch extends CatalogOrder
+class ProductImageSearch extends ProductImage
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class CatalogOrderSearch extends CatalogOrder
     public function rules()
     {
         return [
-            [['id', 'address', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['first_name', 'last_name', 'email', 'phone'], 'safe'],
+            [['id', 'product_id', 'position', 'created_at', 'updated_at', 'status'], 'integer'],
+            [['image'], 'safe'],
         ];
     }
 
@@ -41,7 +41,8 @@ class CatalogOrderSearch extends CatalogOrder
      */
     public function search($params)
     {
-        $query = CatalogOrder::find();
+        $query = ProductImage::find();
+        $query->orderBy(['product_id' => SORT_DESC, 'position' => SORT_ASC]);
 
         // add conditions that should always apply here
 
@@ -60,16 +61,14 @@ class CatalogOrderSearch extends CatalogOrder
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'address' => $this->address,
-            'status' => $this->status,
+            'product_id' => $this->product_id,
+            'position' => $this->position,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'status' => $this->status,
         ]);
 
-        $query->andFilterWhere(['like', 'first_name', $this->first_name])
-            ->andFilterWhere(['like', 'last_name', $this->last_name])
-            ->andFilterWhere(['like', 'email', $this->email])
-            ->andFilterWhere(['like', 'phone', $this->phone]);
+        $query->andFilterWhere(['like', 'image', $this->image]);
 
         return $dataProvider;
     }

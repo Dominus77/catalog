@@ -8,7 +8,7 @@ use yii\bootstrap\Collapse;
 use modules\catalog\Module;
 
 /* @var $this yii\web\View */
-/* @var $model modules\catalog\models\CatalogOrder */
+/* @var $model modules\catalog\models\Order */
 
 $this->title = Module::t('module', 'Catalog');
 $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['default/index']];
