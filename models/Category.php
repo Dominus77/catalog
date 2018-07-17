@@ -9,7 +9,7 @@ use yii\helpers\ArrayHelper;
 use yii\behaviors\TimestampBehavior;
 use creocoder\nestedsets\NestedSetsBehavior;
 use yii\behaviors\SluggableBehavior;
-use modules\catalog\models\query\CatalogCategoryQuery;
+use modules\catalog\models\query\CategoryQuery;
 use yii\data\ActiveDataProvider;
 use modules\catalog\Module;
 use yii\helpers\VarDumper;
@@ -181,11 +181,11 @@ class Category extends \yii\db\ActiveRecord
 
     /**
      * @inheritdoc
-     * @return CatalogCategoryQuery the active query used by this AR class.
+     * @return CategoryQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new CatalogCategoryQuery(get_called_class());
+        return new CategoryQuery(get_called_class());
     }
 
     /**

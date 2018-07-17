@@ -6,10 +6,10 @@ use yii\db\ActiveQuery;
 use modules\catalog\models\Order;
 
 /**
- * Class CatalogOrderQuery
+ * Class OrderQuery
  * @package modules\catalog\models\query
  */
-class CatalogOrderQuery extends ActiveQuery
+class OrderQuery extends ActiveQuery
 {
     /**
      * @param $timeout int

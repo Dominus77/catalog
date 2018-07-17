@@ -65,7 +65,7 @@ class CategoryController extends Controller
      */
     public function actionProducts($id)
     {
-        $this->redirect(Url::to(['product/index', 'CatalogProductSearch[category_id]' => $id]));
+        $this->redirect(Url::to(['product/index', 'ProductSearch[category_id]' => $id]));
     }
 
     /**

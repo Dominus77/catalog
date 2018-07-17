@@ -6,7 +6,7 @@ use Yii;
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use yii\behaviors\TimestampBehavior;
-use modules\catalog\models\query\CatalogOrderQuery;
+use modules\catalog\models\query\OrderQuery;
 use modules\catalog\Module;
 
 /**
@@ -166,11 +166,11 @@ class Order extends \yii\db\ActiveRecord
 
     /**
      * @inheritdoc
-     * @return CatalogOrderQuery the active query used by this AR class.
+     * @return OrderQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new CatalogOrderQuery(get_called_class());
+        return new OrderQuery(get_called_class());
     }
 
     /**

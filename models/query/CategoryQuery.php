@@ -7,17 +7,17 @@ use creocoder\nestedsets\NestedSetsQueryBehavior;
 use modules\catalog\models\Category;
 
 /**
- * Class CatalogCategoryQuery
+ * Class CategoryQuery
  * @package modules\catalog\models\query
  */
-class CatalogCategoryQuery extends ActiveQuery
+class CategoryQuery extends ActiveQuery
 {
     /**
      * @return array
      */
     public function behaviors() {
         return [
-            NestedSetsQueryBehavior::className(),
+            NestedSetsQueryBehavior::class,
         ];
     }
 

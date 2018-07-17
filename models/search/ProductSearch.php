@@ -8,7 +8,7 @@ use yii\data\ActiveDataProvider;
 use modules\catalog\models\Product;
 
 /**
- * Class CatalogProductSearch
+ * Class ProductSearch
  * @package modules\catalog\models\search
  */
 class ProductSearch extends Product
