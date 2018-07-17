@@ -9,6 +9,7 @@ use modules\catalog\models\CatalogCategory;
 use modules\catalog\models\search\CatalogCategorySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use modules\catalog\Module;
@@ -19,8 +20,6 @@ use modules\catalog\Module;
  */
 class CategoryController extends Controller
 {
-    protected $jsFile;
-
     /**
      * @inheritdoc
      */
@@ -43,20 +42,6 @@ class CategoryController extends Controller
                 ],
             ],
         ];
-    }
-
-    public function init()
-    {
-        parent::init();
-
-        $this->jsFile = '@modules/catalog/views/ajax/ajax.js';
-
-        // Publish and register the required JS file
-        Yii::$app->assetManager->publish($this->jsFile);
-        $this->getView()->registerJsFile(
-            Yii::$app->assetManager->getPublishedUrl($this->jsFile),
-            ['depends' => 'yii\web\JqueryAsset',] // depends
-        );
     }
 
     /**
@@ -180,33 +165,34 @@ class CategoryController extends Controller
     }
 
     /**
-     * @param $id
-     * @return mixed|\yii\web\Response
+     * @param integer $id
+     * @return array|Response
      * @throws NotFoundHttpException
      */
-    public function actionStatus($id)
+    public function actionSetStatus($id)
+    {
+        if (Yii::$app->request->isAjax) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            $result = $this->processChangeStatus($id);
+            return [
+                'result' => $result->statusLabelName,
+            ];
+        }
+        $this->processChangeStatus($id);
+        return $this->redirect(Yii::$app->request->referrer);
+    }
+
+    /**
+     * @param $id integer
+     * @return CatalogCategory
+     * @throws NotFoundHttpException
+     */
+    protected function processChangeStatus($id)
     {
         $model = $this->findModel($id);
-        $model->scenario = $model::SCENARIO_UPDATE;
-
-        if ($model->isPublish()) {
-            $model->status = $model::STATUS_DRAFT;
-        } else if ($model->isDraft()) {
-            $model->status = $model::STATUS_PUBLISH;
-        } else if ($model->isDeleted()) {
-            $model->status = $model::STATUS_DRAFT;
-        }
-
-        if ($model->save()) {
-            if (Yii::$app->request->isAjax) {
-                Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-                return [
-                    'body' => $model->statusLabelName,
-                    'success' => true,
-                ];
-            }
-        }
-        return $this->redirect(Yii::$app->request->referrer ?: Url::to(['index']));
+        $model->setStatus();
+        $model->save(false);
+        return $model;
     }
 
     /**

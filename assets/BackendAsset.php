@@ -5,20 +5,15 @@ namespace modules\catalog\assets;
 use yii\web\AssetBundle;
 
 /**
- * Class ProductAsset
+ * Class BackendAsset
  * @package modules\catalog\assets
  */
-class ProductAsset extends AssetBundle
+class BackendAsset extends AssetBundle
 {
     /**
      * @var string
      */
     public $sourcePath;
-
-    /**
-     * @var array
-     */
-    public $css = [];
 
     /**
      * @var array
@@ -32,11 +27,8 @@ class ProductAsset extends AssetBundle
     {
         parent::init();
         $this->sourcePath = __DIR__ . '/src';
-        $this->css = [
-            'css/product.css',
-        ];
         $this->js = [
-            'js/product.js',
+            'js/backend.js',
         ];
     }
 

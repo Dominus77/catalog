@@ -1,14 +1,16 @@
 <?php
 
 use yii\helpers\Html;
-use yii\helpers\Url;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use modules\catalog\assets\BackendAsset;
 use modules\catalog\Module;
 
 /* @var $this yii\web\View */
 /* @var $searchModel modules\catalog\models\search\CatalogCategorySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+
+BackendAsset::register($this);
 
 $this->title = Module::t('module', 'Catalog');
 $this->params['breadcrumbs'][] = ['label' => Module::t('module', 'Catalog'), 'url' => ['default/index']];
@@ -98,9 +100,10 @@ $this->params['breadcrumbs'][] = Module::t('module', 'Categories');
                         ]),
                         'format' => 'raw',
                         'value' => function ($data) {
-                            return Html::a($data->statusLabelName, Url::to(['status', 'id' => $data->id]), [
-                                'id' => 'status_link_' . $data->id,
-                                'title' => Module::t('module', 'Click to change the status.'),
+                            return Html::a($data->statusLabelName, ['set-status', 'id' => $data->id], [
+                                'id' => $data->id,
+                                'class' => 'link-status',
+                                'title' => Module::t('module', 'Click to change the status'),
                                 'data' => [
                                     'toggle' => 'tooltip',
                                     'pjax' => 0,

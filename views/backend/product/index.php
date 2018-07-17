@@ -5,12 +5,15 @@ use yii\helpers\Url;
 use dimmitri\grid\ExpandRowColumn;
 use yii\grid\GridView;
 use yii\bootstrap\ButtonDropdown;
+use modules\catalog\assets\BackendAsset;
 use modules\catalog\helpers\ShopHelper;
 use modules\catalog\Module;
 
 /* @var $this yii\web\View */
 /* @var $searchModel modules\catalog\models\search\CatalogProductSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+
+BackendAsset::register($this);
 
 $this->title = Module::t('module', 'Catalog');
 $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['/catalog/default/index']];
@@ -166,13 +169,12 @@ $this->params['breadcrumbs'][] = Module::t('module', 'Products');
                         ]),
                         'format' => 'raw',
                         'value' => function ($data) {
-                            //$this->registerJs("$('#status_link_" . $data->id . "').click(handleAjaxLink);", \yii\web\View::POS_READY);
-                            return Html::a($data->statusLabelName, Url::to(['status', 'id' => $data->id]), [
-                                'id' => 'status_link_' . $data->id,
-                                'title' => Module::t('module', 'Click to change the status.'),
+                            return Html::a($data->statusLabelName, ['set-status', 'id' => $data->id], [
+                                'id' => $data->id,
+                                'class' => 'link-status',
+                                'title' => Module::t('module', 'Click to change the status'),
                                 'data' => [
                                     'toggle' => 'tooltip',
-                                    'method' => 'post',
                                     'pjax' => 0,
                                 ],
                             ]);

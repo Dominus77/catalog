@@ -127,7 +127,7 @@ return [
     'Images successfully uploaded.' => 'Images successfully uploaded.',
     'Error loading images!' => 'Error loading images!',
 
-    'Click to change the status.' => 'Click to change the status.',
+    'Click to change the status' => 'Click to change the status.',
     'Error!' => 'Error!',
 
     'Are you sure?' => 'Are you sure?',

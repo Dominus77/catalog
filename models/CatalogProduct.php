@@ -32,6 +32,7 @@ use modules\catalog\Module;
  *
  * @property CatalogCategory $category
  * @property CatalogProductImage[] $catalogProductImages
+ * @property string $statusLabelName
  */
 class CatalogProduct extends \yii\db\ActiveRecord
 {
@@ -268,6 +269,22 @@ class CatalogProduct extends \yii\db\ActiveRecord
             $total += $item[$fieldName1] * $item[$fieldName2];
         }
         return $total;
+    }
+
+    /**
+     * Set Status
+     * @return int|string
+     */
+    public function setStatus()
+    {
+        switch ($this->status) {
+            case self::STATUS_PUBLISH:
+                $this->status = self::STATUS_DRAFT;
+                break;
+            default:
+                $this->status = self::STATUS_PUBLISH;
+        }
+        return $this->status;
     }
 
     /**

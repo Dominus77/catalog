@@ -127,7 +127,7 @@ return [
     'Images successfully uploaded.' => 'Изображения успешно загружены.',
     'Error loading images!' => 'Ошибка загрузки изображений!',
 
-    'Click to change the status.' => 'Клик для смены статуса.',
+    'Click to change the status' => 'Клик для смены статуса.',
     'Error!' => 'Ошибка!',
 
     'Are you sure?' => 'Вы уверены?',

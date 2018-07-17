@@ -22,6 +22,7 @@ use yii\helpers\VarDumper;
  * @property integer $status
  *
  * @property CatalogProduct $product
+ * @property string $statusLabelName
  */
 class CatalogProductImage extends \yii\db\ActiveRecord
 {
@@ -147,6 +148,22 @@ class CatalogProductImage extends \yii\db\ActiveRecord
     }
 
     /**
+     * Set Status
+     * @return int|string
+     */
+    public function setStatus()
+    {
+        switch ($this->status) {
+            case self::STATUS_PUBLISH:
+                $this->status = self::STATUS_DRAFT;
+                break;
+            default:
+                $this->status = self::STATUS_PUBLISH;
+        }
+        return $this->status;
+    }
+
+    /**
      * Return categories
      * @return array
      */
@@ -160,7 +177,7 @@ class CatalogProductImage extends \yii\db\ActiveRecord
      * @param null $dir
      * @return string
      */
-    public function getDir($dir=null)
+    public function getDir($dir = null)
     {
         $dir = $dir ? $dir : $this->product_id;
         return Module::$uploadDir . '/' . $dir . '/';
@@ -170,10 +187,10 @@ class CatalogProductImage extends \yii\db\ActiveRecord
      * @param null $image
      * @return string
      */
-    public function getCellImage($image=null)
+    public function getCellImage($image = null)
     {
         $image = $image ? $image : $this->image;
-        return '/'.$this->getDir() . $image;
+        return '/' . $this->getDir() . $image;
     }
 
     /**

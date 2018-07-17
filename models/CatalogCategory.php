@@ -31,6 +31,7 @@ use yii\helpers\VarDumper;
  * @property string $meta_keywords
  *
  * @property CatalogProduct[] $catalogProduct
+ * @property string $statusLabelName
  */
 class CatalogCategory extends \yii\db\ActiveRecord
 {
@@ -240,6 +241,22 @@ class CatalogCategory extends \yii\db\ActiveRecord
     }
 
     /**
+     * Set Status
+     * @return int|string
+     */
+    public function setStatus()
+    {
+        switch ($this->status) {
+            case self::STATUS_PUBLISH:
+                $this->status = self::STATUS_DRAFT;
+                break;
+            default:
+                $this->status = self::STATUS_PUBLISH;
+        }
+        return $this->status;
+    }
+
+    /**
      * @return bool
      */
     public function isPublish()
@@ -284,7 +301,7 @@ class CatalogCategory extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return array
+     * @return string
      */
     public function getStringTreePath()
     {
