@@ -359,6 +359,8 @@ class CatalogProduct extends \yii\db\ActiveRecord
      */
     public function processPreparationImportData($data = [])
     {
+        /*VarDumper::dump($data, 10, 1);
+        die;*/
         $newArrayData = [];
         if ($data) {
             if ($data = $this->processDeleteImportEmptyRows($data)) {
@@ -422,12 +424,18 @@ class CatalogProduct extends \yii\db\ActiveRecord
 
     /**
      * @return bool
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function beforeDelete()
     {
         parent::beforeDelete();
+        // Удаляем товар из заказа
+        CatalogOrderProduct::deleteAll(['product_id' => $this->id]);
         // Удаляем изображения товара
-        CatalogProductImage::deleteAll(['product_id' => $this->id]);
+        foreach ($this->catalogProductImages as $image) {
+            $image->delete();
+        }
         return true;
     }
 }

@@ -199,6 +199,7 @@ class CatalogProductImage extends \yii\db\ActiveRecord
     /**
      * Действия перед удалением
      * @return bool
+     * @throws \yii\base\ErrorException
      */
     public function beforeDelete()
     {

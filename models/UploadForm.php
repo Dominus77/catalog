@@ -2,11 +2,11 @@
 
 namespace modules\catalog\models;
 
+use Yii;
 use yii\base\Model;
-//use yii\web\UploadedFile;
 use yii\imagine\Image;
+use yii\helpers\FileHelper;
 use modules\catalog\Module;
-use yii\helpers\VarDumper;
 
 /**
  * Class UploadForm
@@ -108,15 +108,20 @@ class UploadForm extends Model
     /**
      * @return null
      */
+    /**
+     * @return bool
+     * @throws \yii\base\ErrorException
+     */
     public function delete()
     {
         if (isset($this->oldFile) && !empty($this->oldFile)) {
             $path = $this->_path . '/' . $this->oldFile;
-            if (file_exists($path))
-                unlink($path);
+            if (file_exists($path)) {
+                FileHelper::unlink($path);
+            }
             // Если папка пустая, удаляем.
             if ([] === (array_diff(scandir($this->_path), ['.', '..']))) {
-                rmdir($this->_path);
+                FileHelper::removeDirectory($this->_path);
             }
         }
         return true;
@@ -128,7 +133,7 @@ class UploadForm extends Model
     protected function processMkDir()
     {
         if (!file_exists($this->_path)) {
-            mkdir($this->_path, 0777, true);
+            FileHelper::createDirectory($this->_path, 0777, true);
         }
         return null;
     }
