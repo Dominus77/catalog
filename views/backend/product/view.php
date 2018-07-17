@@ -4,17 +4,18 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\DetailView;
 use modules\catalog\helpers\ShopHelper;
+use modules\catalog\assets\BackendAsset;
 use modules\catalog\Module;
 
 /* @var $this yii\web\View */
 /* @var $model modules\catalog\models\Product */
 
+BackendAsset::register($this);
+
 $this->title = Module::t('module', 'Catalog');
 $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['default/index']];
 $this->params['breadcrumbs'][] = ['label' => Module::t('module', 'Products'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = Module::t('module', 'View');
-
-$this->registerJs("$('#status_link_" . $model->id . "').click(handleAjaxLink);", \yii\web\View::POS_READY);
 ?>
 <div class="catalog-backend-product-view">
     <div class="box">
@@ -50,9 +51,10 @@ $this->registerJs("$('#status_link_" . $model->id . "').click(handleAjaxLink);",
                     [
                         'attribute' => 'status',
                         'format' => 'raw',
-                        'value' => Html::a($model->statusLabelName, Url::to(['status', 'id' => $model->id]), [
-                            'id' => 'status_link_' . $model->id,
-                            'title' => Module::t('module', 'Click to change the status.'),
+                        'value' => Html::a($model->statusLabelName, Url::to(['set-status', 'id' => $model->id]), [
+                            'id' => $model->id,
+                            'class' => 'link-status',
+                            'title' => Module::t('module', 'Click to change the status'),
                             'data' => [
                                 'toggle' => 'tooltip',
                             ],

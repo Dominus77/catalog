@@ -7,6 +7,7 @@ use modules\catalog\models\Order;
 use modules\catalog\models\search\OrderSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 use yii\filters\VerbFilter;
 
 /**
@@ -94,6 +95,37 @@ class OrdersController extends Controller
                 'model' => $model,
             ]);
         }
+    }
+
+    /**
+     * @param integer $id
+     * @return array|Response
+     * @throws NotFoundHttpException
+     */
+    public function actionSetStatus($id)
+    {
+        if (Yii::$app->request->isAjax) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            $result = $this->processChangeStatus($id);
+            return [
+                'result' => $result->statusLabelName,
+            ];
+        }
+        $this->processChangeStatus($id);
+        return $this->redirect(Yii::$app->request->referrer);
+    }
+
+    /**
+     * @param $id integer
+     * @return Order
+     * @throws NotFoundHttpException
+     */
+    protected function processChangeStatus($id)
+    {
+        $model = $this->findModel($id);
+        $model->setStatus();
+        $model->save(false);
+        return $model;
     }
 
     /**

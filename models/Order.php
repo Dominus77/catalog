@@ -3,6 +3,8 @@
 namespace modules\catalog\models;
 
 use Yii;
+use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 use yii\behaviors\TimestampBehavior;
 use modules\catalog\models\query\CatalogOrderQuery;
 use modules\catalog\Module;
@@ -23,6 +25,7 @@ use modules\catalog\Module;
  * @property OrderProduct[] $catalogOrderProducts
  * @property float|int $amount
  * @property integer $productsCount
+ * @property string $statusLabelName
  */
 class Order extends \yii\db\ActiveRecord
 {
@@ -196,6 +199,60 @@ class Order extends \yii\db\ActiveRecord
             self::STATUS_ORDER_CANCELED => Module::t('module', 'Canceled'),
             self::STATUS_ORDER_RETURN => Module::t('module', 'Return'),
         ];
+    }
+
+    /**
+     * @return array
+     */
+    public static function getLabelsArray()
+    {
+        return [
+            self::STATUS_ORDER_DEFAULT => 'default',
+            self::STATUS_ORDER_NEW => 'success',
+            self::STATUS_ORDER_PROCESSED => 'success',
+            self::STATUS_ORDER_PROCESS_PAYMENT => 'success',
+            self::STATUS_ORDER_PAID => 'success',
+            self::STATUS_ORDER_IN_THE_DELIVERY => 'success',
+            self::STATUS_ORDER_DELIVERED => 'success',
+            self::STATUS_ORDER_READY => 'success',
+            self::STATUS_ORDER_REFUSED => 'success',
+            self::STATUS_ORDER_CANCELED => 'success',
+            self::STATUS_ORDER_RETURN => 'success',
+        ];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatusName()
+    {
+        return ArrayHelper::getValue(self::getStatusesArray(), $this->status);
+    }
+
+    /**
+     * Return <span class="label label-success">Active</span>
+     * @return string
+     */
+    public function getStatusLabelName()
+    {
+        $name = ArrayHelper::getValue(self::getLabelsArray(), $this->status);
+        return Html::tag('span', self::getStatusName(), ['class' => 'label label-' . $name]);
+    }
+
+    /**
+     * Set Status
+     * @return int|string
+     */
+    public function setStatus()
+    {
+        switch ($this->status) {
+            case self::STATUS_ORDER_DEFAULT:
+                $this->status = self::STATUS_ORDER_NEW;
+                break;
+            default:
+                $this->status = self::STATUS_ORDER_DEFAULT;
+        }
+        return $this->status;
     }
 
     /**
