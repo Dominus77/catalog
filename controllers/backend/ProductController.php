@@ -214,7 +214,7 @@ class ProductController extends Controller
         Excel::export([
             'models' => $dataProvider->models,
             'fileName' => $searchModel->getTableSchema()->fullName,
-            /*'columns' => [
+            'columns' => [
                 [
                     'attribute' => 'code',
                     'format' => 'text',
@@ -257,7 +257,7 @@ class ProductController extends Controller
                         return $data->category_id . ' (' . $data->category->stringTreePath . ')';
                     }
                 ],
-            ],*/
+            ],
 
         ]);
     }
