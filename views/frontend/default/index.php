@@ -7,7 +7,7 @@ use modules\catalog\Module;
 /* @var $this yii\web\View */
 /* @var $model modules\catalog\models\Category */
 
-$this->title = $model->rootCategory->name ? $model->rootCategory->name : Module::t('module', 'Catalog');
+$this->title = (isset($model->rootCategory->name) && $model->rootCategory->name !== null) ? $model->rootCategory->name : Module::t('module', 'Catalog');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="catalog-frontend-default-index">
@@ -28,7 +28,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <div class="col-lg-9">
             <h1><?= Html::encode($this->title) ?></h1>
-            <?= $model->rootCategory->description ?>
+            <?= (isset($model->rootCategory->description) && $model->rootCategory->description !== null) ? 
+            $model->rootCategory->description : '' ?>
         </div>
 
     </div>

@@ -1,13 +1,24 @@
 <?php
 
 use yii\helpers\Html;
-use yii\helpers\Url;
-use dimmitri\grid\ExpandRowColumn;
-use yii\grid\GridView;
+
+//use yii\helpers\Url;
+//use yii\grid\GridView;
 use yii\bootstrap\ButtonDropdown;
+use dimmitri\grid\ExpandRowColumn;
+//use dosamigos\exportable\ExportableButton;
+use dosamigos\exportable\helpers\TypeHelper;
 use modules\catalog\assets\BackendAsset;
 use modules\catalog\helpers\ShopHelper;
 use modules\catalog\Module;
+
+use dosamigos\exportable\ExportableButton;
+use dosamigos\exportable\behaviors\ExportableBehavior;
+use dosamigos\grid\GridView;
+use dosamigos\grid\behaviors\LoadingBehavior;
+use dosamigos\grid\behaviors\ToolbarBehavior;
+use dosamigos\grid\buttons\ReloadButton;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel modules\catalog\models\search\ProductSearch */
@@ -34,50 +45,19 @@ $this->params['breadcrumbs'][] = Module::t('module', 'Products');
                     'defaultPageSize' => 25,
                     'sizes' => [10 => 10, 15 => 15, 20 => 20, 25 => 25, 50 => 50, 100 => 100, 200 => 200],
                     'options' => [
-                        'class' => 'form-control'
+                        'class' => 'form-control',
+                        'style' => 'position:relative; top: 7px;',
                     ]
                 ]); ?>
             </div>
-            <div class="pull-right">
-                <p>
-                    <?= ButtonDropdown::widget([
-                        'label' => '<span class="fa fa-file-excel-o"></span> ' . Module::t('module', 'Excel'),
-                        'encodeLabel' => false,
-                        'dropdown' => [
-                            'encodeLabels' => false,
-                            'items' => [
-                                [
-                                    'label' => '<span class="glyphicon glyphicon-export"></span> ' . Module::t('module', 'Export'),
-                                    'url' => ['export', 'params' => Yii::$app->request->queryParams],
-                                ],
-                                [
-                                    'label' => '<span class="glyphicon glyphicon-import"></span> ' . Module::t('module', 'Import'),
-                                    'url' => ['import', 'params' => Yii::$app->request->queryParams],
-                                ],
-                            ],
-                        ],
-                        'options' => [
-                            'class' => 'btn btn-default',
-                        ],
-                    ]); ?>
-                    <?= Html::a('<span class="fa fa-plus"></span> ', ['create'], [
-                        'class' => 'btn btn-success',
-                        'title' => Module::t('module', 'Create Product'),
-                        'data' => [
-                            'toggle' => 'tooltip',
-                            'placement' => 'top',
-                            'pjax' => 0,
-                        ],
-                    ]) ?>
-                </p>
-            </div>
+            <div class="pull-right"></div>
             <?= GridView::widget([
                 'id' => 'grid-products',
                 'dataProvider' => $dataProvider,
                 'filterModel' => $searchModel,
                 'filterSelector' => 'select[name="per-page"]',
                 'showFooter' => true,
-                'layout' => "{items}\n{pager}",
+                'layout' => "{toolbar}\n{items}\n{pager}",
                 'tableOptions' => [
                     'class' => 'table table-bordered table-hover',
                 ],
@@ -87,6 +67,40 @@ $this->params['breadcrumbs'][] = Module::t('module', 'Products');
                     }
                     return false;
                 },
+                'behaviors' => [
+                    ExportableBehavior::class,
+                    [
+                        'class' => LoadingBehavior::class,
+                        'type' => 'reload'
+                    ],
+                    [
+                        'class' => ToolbarBehavior::class,
+                        'options' => ['style' => 'margin-bottom: 5px'],
+                        'encodeLabels' => false, // like this we will be able to display HTML on our buttons
+                        'buttons' => [
+                            Html::a('<span class="fa fa-plus"></span> ', ['create'], [
+                                'class' => 'btn btn-success',
+                                'title' => Module::t('module', 'Create Product'),
+                                'data' => [
+                                    'toggle' => 'tooltip',
+                                    'placement' => 'top',
+                                    'pjax' => 0,
+                                ],
+                            ]),
+                            '-',
+                            ExportableButton::widget(
+                                [
+                                    'label' => '<i class="glyphicon glyphicon-export"></i>',
+                                    'options' => ['class' => 'btn-default pull-right'],
+                                    'dropdown' => [
+                                        'options' => ['class' => 'dropdown-menu-right']
+                                    ]
+                                ]
+                            )
+
+                        ]
+                    ],
+                ],
                 'columns' => [
                     [
                         'attribute' => 'position',

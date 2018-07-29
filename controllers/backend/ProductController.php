@@ -7,6 +7,9 @@ use yii\helpers\Url;
 use modules\catalog\models\Product;
 use modules\catalog\models\search\ProductSearch;
 use moonland\phpexcel\Excel;
+use dosamigos\exportable\helpers\TypeHelper;
+use modules\catalog\components\exportable\services\ExportableService;
+use yii\helpers\VarDumper;
 use yii\web\UploadedFile;
 use modules\catalog\models\Import;
 use yii\web\Controller;
@@ -15,6 +18,8 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use modules\catalog\Module;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 /**
  * Class ProductController
@@ -190,65 +195,6 @@ class ProductController extends Controller
         } else {
             throw new NotFoundHttpException(Module::t('module', 'The requested page does not exist.'));
         }
-    }
-
-    /**
-     * Export to Excel
-     * @throws \yii\base\InvalidConfigException
-     */
-    public function actionExport()
-    {
-        $searchModel = new ProductSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams['params']);
-        Excel::export([
-            'models' => $dataProvider->models,
-            'fileName' => $searchModel->getTableSchema()->fullName,
-            /*'columns' => [
-                [
-                    'attribute' => 'code',
-                    'format' => 'text',
-                    'value' => function ($data) {
-                        return $data->code;
-                    }
-                ],
-                [
-                    'attribute' => 'name',
-                    'format' => 'text',
-                    'value' => function ($data) {
-                        return $data->name;
-                    }
-                ],
-                [
-                    'attribute' => 'description',
-                    'format' => 'text',
-                    'value' => function ($data) {
-                        return $data->description;
-                    }
-                ],
-                [
-                    'attribute' => 'availability',
-                    'format' => 'decimal',
-                    'value' => function ($data) {
-                        return $data->availability;
-                    }
-                ],
-                [
-                    'attribute' => 'retail',
-                    //'format' => 'integer',
-                    'value' => function ($data) {
-                        return $data->retail;
-                    }
-                ],
-                [
-                    'attribute' => 'category_id',
-                    'format' => 'text',
-                    'value' => function ($data) {
-                        return $data->category_id . ' (' . $data->category->stringTreePath . ')';
-                    }
-                ],
-            ],*/
-
-        ]);
     }
 
     /**
